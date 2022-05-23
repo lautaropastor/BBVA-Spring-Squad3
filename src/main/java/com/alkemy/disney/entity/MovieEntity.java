@@ -21,9 +21,9 @@ public class MovieEntity {
 
     @ManyToOne ()
     @JoinColumn(name = "genre_id", nullable = false)
-    private Genre genre;
+    private GenreEntity genre;
     @ManyToMany(mappedBy = "movies", cascade = CascadeType.REMOVE)
-    private List<Character> characters;
+    private List<CharacterEntity> characters;
 
     public MovieEntity(Long movie_id, String title, String image, Date realasedDate, Integer calification, Genre genre, List<Character> characters) {
         this.movie_id = movie_id;
@@ -65,16 +65,16 @@ public class MovieEntity {
     public void setCalification(Integer calification) {
         this.calification = calification;
     }
-    public Genre getGenre() {
+    public GenreEntity getGenre() {
         return genre;
     }
-    public void setGenre(Genre genre) {
+    public void setGenre(GenreEntity genre) {
         this.genre = genre;
     }
-    public List<Character> getCharacters() {
+    public List<CharacterEntity> getCharacters() {
         return characters;
     }
-    public void setCharacters(List<Character> characters) {
+    public void setCharacters(List<CharacterEntity> characters) {
         this.characters = characters;
     }
 
