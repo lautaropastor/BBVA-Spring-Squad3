@@ -11,5 +11,7 @@ public class GenderEntity {
     private String name;
     private String image;
 
+    //@OneToMany(mappedBy = "gener_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //private List<MovieEntity> movies;
 
 }
