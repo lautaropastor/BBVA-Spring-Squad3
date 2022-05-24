@@ -10,7 +10,7 @@ import java.util.List;
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movie_id;
+    private Long id;
     @Column (nullable = false)
     private String title;
     @Column
@@ -20,38 +20,52 @@ public class MovieEntity {
     @Column (nullable = false)
     private Integer calification;
 
-    @ManyToOne ()
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
+    })
     @JoinColumn(name = "genre_id", nullable = false)
     private GenreEntity genre;
-    @ManyToMany(mappedBy = "movies", cascade = CascadeType.REMOVE)
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
+    })
+    @JoinTable(
+            name="movies_characters",
+            joinColumns = {@JoinColumn(name="movie_id")},
+            inverseJoinColumns = {@JoinColumn(name="character_id")}
+    )
     private List<CharacterEntity> characters;
 
-    public MovieEntity (){}
+    public MovieEntity (){
+        characters = new ArrayList<>();
+    }
 
-    public MovieEntity(Long movie_id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre) {
-        this.movie_id = movie_id;
+    public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+        super();
+        this.id = id;
         this.title = title;
         this.image = image;
         this.realasedDate = realasedDate;
         this.calification = calification;
         this.genre = genre;
-        this.characters = new ArrayList<>();
+        this.characters = characters;
     }
 
-    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre) {
+    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+        super();
         this.title = title;
         this.image = image;
         this.realasedDate = realasedDate;
         this.calification = calification;
         this.genre = genre;
-        this.characters = new ArrayList<>();
+        this.characters = characters;
     }
 
-    public Long getMovie_id() {
-        return movie_id;
+    public Long getId() {
+        return id;
     }
-    public void setMovie_id(Long movie_id) {
-        this.movie_id = movie_id;
+    public void setId(Long movieId) {
+        this.id = movieId;
     }
     public String getTitle() {
         return title;
@@ -96,7 +110,7 @@ public class MovieEntity {
     @Override
     public String toString() {
         return "Movie{" +
-                "movie_id=" + movie_id +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", image='" + image + '\'' +
                 ", realasedDate=" + realasedDate +
