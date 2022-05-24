@@ -26,7 +26,7 @@ public class MovieEntity {
     @JoinColumn(name = "genre_id", nullable = false)
     private GenreEntity genre;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
     })
     @JoinTable(

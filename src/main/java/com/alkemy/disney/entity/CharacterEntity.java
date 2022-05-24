@@ -29,7 +29,7 @@ public class CharacterEntity implements Serializable {
     @Column
     private String history;
 
-    @ManyToMany(mappedBy = "characters", fetch = FetchType.EAGER, cascade = {
+    @ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
     })
     private List<MovieEntity> movies;
@@ -43,7 +43,7 @@ public class CharacterEntity implements Serializable {
         this.name = name;
     }
     
-    public CharacterEntity(String name, String image, Integer age, Double weight, String history) {
+    public CharacterEntity(String name, String image, Integer age, Double weight, String history, List<MovieEntity> movies) {
         super();
         this.name = name;
         this.image = image;
