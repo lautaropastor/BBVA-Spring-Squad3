@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,10 +16,20 @@ public class Genre {
     protected Long id;
     protected String name, imgUrl;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy="genre",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE,
+                    CascadeType.REMOVE
+            })
     @JoinColumn(name="FILM_ID", nullable=true)
-    protected Film film;
+    protected Set<Film> films;
 
     protected Genre() {}
 
+    protected Genre(long id, String name, String imgUrl){
+        this.id = id;
+        this.name = name;
+        this.imgUrl = imgUrl;
+    }
 }
