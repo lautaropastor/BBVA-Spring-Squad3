@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name="characters")
+@Getter @Setter
 public class CharacterEntity implements Serializable {
 
     @Id
@@ -52,62 +55,6 @@ public class CharacterEntity implements Serializable {
         this.history = history;
         this.movies = movies;
     }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getImage() {
-        return this.image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return this.age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Double getWeight() {
-        return this.weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-    public String getHistory() {
-        return this.history;
-    }
-
-    public void setHistory(String history) {
-        this.history = history;
-    }
-
-    public List<MovieEntity> getMovies() {
-        return this.movies;
-    }
-
-    public void setMovies(List<MovieEntity> movies) {
-        this.movies = movies;
-    }  
     
     public void addMovie(MovieEntity newMovie) {   
         movies.add(newMovie);

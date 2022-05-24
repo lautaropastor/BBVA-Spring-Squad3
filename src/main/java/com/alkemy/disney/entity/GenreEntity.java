@@ -3,9 +3,12 @@ package com.alkemy.disney.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name="genres")
+@Getter @Setter
 public class GenreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,38 +29,6 @@ public class GenreEntity {
         this.name = name;
         this.image = image;
         this.movies = new ArrayList<>();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public List<MovieEntity> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<MovieEntity> movies) {
-        this.movies = movies;
     }
 
     @Override

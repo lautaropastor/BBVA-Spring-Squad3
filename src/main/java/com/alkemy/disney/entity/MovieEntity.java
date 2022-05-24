@@ -4,9 +4,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table (name = "movies")
+@Getter @Setter
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,49 +63,7 @@ public class MovieEntity {
         this.genre = genre;
         this.characters = characters;
     }
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long movieId) {
-        this.id = movieId;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public String getImage() {
-        return image;
-    }
-    public void setImage(String image) {
-        this.image = image;
-    }
-    public Date getRealasedDate() {
-        return realasedDate;
-    }
-    public void setRealasedDate(Date realasedDate) {
-        this.realasedDate = realasedDate;
-    }
-    public Integer getCalification() {
-        return calification;
-    }
-    public void setCalification(Integer calification) {
-        this.calification = calification;
-    }
-    public GenreEntity getGenre() {
-        return genre;
-    }
-    public void setGenre(GenreEntity genre) {
-        this.genre = genre;
-    }
-    public List<CharacterEntity> getCharacters() {
-        return characters;
-    }
-    public void setCharacters(List<CharacterEntity> characters) {
-        this.characters = characters;
-    }
+    
     public void addCharacter (CharacterEntity character) {
         characters.add(character);
     }
