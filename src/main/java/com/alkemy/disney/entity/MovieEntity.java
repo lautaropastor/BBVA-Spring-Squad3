@@ -20,15 +20,28 @@ public class MovieEntity {
     @Column (nullable = false)
     private Integer calification;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
+    })
     @JoinColumn(name = "genre_id", nullable = false)
     private GenreEntity genre;
-    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
+    })
+    @JoinTable(
+            name="movies_characters",
+            joinColumns = {@JoinColumn(name="movie_id")},
+            inverseJoinColumns = {@JoinColumn(name="character_id")}
+    )
     private List<CharacterEntity> characters;
 
-    public MovieEntity (){}
+    public MovieEntity (){
+        characters = new ArrayList<>();
+    }
 
     public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+        super();
         this.id = id;
         this.title = title;
         this.image = image;
@@ -39,6 +52,7 @@ public class MovieEntity {
     }
 
     public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+        super();
         this.title = title;
         this.image = image;
         this.realasedDate = realasedDate;

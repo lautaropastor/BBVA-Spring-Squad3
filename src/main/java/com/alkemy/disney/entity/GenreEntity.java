@@ -13,7 +13,9 @@ public class GenreEntity {
     private String name;
     private String image;
 
-    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
+    })
     private List<MovieEntity> movies;
 
     public GenreEntity() {
