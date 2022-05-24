@@ -1,6 +1,7 @@
 package com.alkemy.disney.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,14 +26,25 @@ public class MovieEntity {
     @ManyToMany(mappedBy = "movies", cascade = CascadeType.REMOVE)
     private List<CharacterEntity> characters;
 
-    public MovieEntity(Long movie_id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+    public MovieEntity (){}
+
+    public MovieEntity(Long movie_id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre) {
         this.movie_id = movie_id;
         this.title = title;
         this.image = image;
         this.realasedDate = realasedDate;
         this.calification = calification;
         this.genre = genre;
-        this.characters = characters;
+        this.characters = new ArrayList<>();
+    }
+
+    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre) {
+        this.title = title;
+        this.image = image;
+        this.realasedDate = realasedDate;
+        this.calification = calification;
+        this.genre = genre;
+        this.characters = new ArrayList<>();
     }
 
     public Long getMovie_id() {
@@ -76,6 +88,9 @@ public class MovieEntity {
     }
     public void setCharacters(List<CharacterEntity> characters) {
         this.characters = characters;
+    }
+    public void addCharacter (CharacterEntity character) {
+        characters.add(character);
     }
 
     @Override
