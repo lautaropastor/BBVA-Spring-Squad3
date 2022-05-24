@@ -15,9 +15,9 @@ public class Genre {
     protected Long id;
     protected String name, imgUrl;
 
-    @ManyToOne
-    @JoinColumn(name="CONTENT_TYPE_ID", nullable=true)
-    protected Content content;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name="FILM_ID", nullable=true)
+    protected Film film;
 
     protected Genre() {}
 
