@@ -10,7 +10,7 @@ import java.util.List;
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movie_id;
+    private Long movieId;
     @Column (nullable = false)
     private String title;
     @Column
@@ -20,38 +20,38 @@ public class MovieEntity {
     @Column (nullable = false)
     private Integer calification;
 
-    @ManyToOne ()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "genre_id", nullable = false)
     private GenreEntity genre;
-    @ManyToMany(mappedBy = "movies", cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<CharacterEntity> characters;
 
     public MovieEntity (){}
 
-    public MovieEntity(Long movie_id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre) {
-        this.movie_id = movie_id;
+    public MovieEntity(Long movieId, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+        this.movieId = movieId;
         this.title = title;
         this.image = image;
         this.realasedDate = realasedDate;
         this.calification = calification;
         this.genre = genre;
-        this.characters = new ArrayList<>();
+        this.characters = characters;
     }
 
-    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre) {
+    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
         this.title = title;
         this.image = image;
         this.realasedDate = realasedDate;
         this.calification = calification;
         this.genre = genre;
-        this.characters = new ArrayList<>();
+        this.characters = characters;
     }
 
-    public Long getMovie_id() {
-        return movie_id;
+    public Long getMovieId() {
+        return movieId;
     }
-    public void setMovie_id(Long movie_id) {
-        this.movie_id = movie_id;
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
     }
     public String getTitle() {
         return title;
@@ -96,7 +96,7 @@ public class MovieEntity {
     @Override
     public String toString() {
         return "Movie{" +
-                "movie_id=" + movie_id +
+                "movieId=" + movieId +
                 ", title='" + title + '\'' +
                 ", image='" + image + '\'' +
                 ", realasedDate=" + realasedDate +
