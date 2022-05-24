@@ -3,15 +3,17 @@ package com.alkemy.disney.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="genders")
-public class GenderEntity {
+@Table(name="genres")
+public class GenreEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String image;
 
-    //@OneToMany(mappedBy = "gener_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //private List<MovieEntity> movies;
+    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<MovieEntity> movies;
+
+
 
 }
