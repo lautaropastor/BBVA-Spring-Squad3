@@ -10,7 +10,7 @@ import java.util.List;
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movieId;
+    private Long id;
     @Column (nullable = false)
     private String title;
     @Column
@@ -28,8 +28,8 @@ public class MovieEntity {
 
     public MovieEntity (){}
 
-    public MovieEntity(Long movieId, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
-        this.movieId = movieId;
+    public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+        this.id = id;
         this.title = title;
         this.image = image;
         this.realasedDate = realasedDate;
@@ -47,11 +47,11 @@ public class MovieEntity {
         this.characters = characters;
     }
 
-    public Long getMovieId() {
-        return movieId;
+    public Long getId() {
+        return id;
     }
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
+    public void setId(Long movieId) {
+        this.id = movieId;
     }
     public String getTitle() {
         return title;
@@ -96,7 +96,7 @@ public class MovieEntity {
     @Override
     public String toString() {
         return "Movie{" +
-                "movieId=" + movieId +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", image='" + image + '\'' +
                 ", realasedDate=" + realasedDate +
