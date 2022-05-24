@@ -43,7 +43,26 @@ public class CharacterEntity implements Serializable {
         joinColumns = @JoinColumn(name="character_id"),
         inverseJoinColumns = @JoinColumn(name="movie_id")
     )
-    private List<MovieEntity> movies = new ArrayList<>();
+    private List<MovieEntity> movies;
+    
+    public CharacterEntity() {
+        movies = new ArrayList<>();
+    }
+    
+    public CharacterEntity(String name) {
+        super();
+        this.name = name;
+    }
+    
+    public CharacterEntity(String name, String image, Integer age, Double weight, String history, List<MovieEntity> movies) {
+        super();
+        this.name = name;
+        this.image = image;
+        this.age = age;
+        this.weight = weight;
+        this.history = history;
+        this.movies = movies;
+    }
 
     public Long getId() {
         return this.id;

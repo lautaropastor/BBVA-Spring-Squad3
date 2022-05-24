@@ -25,7 +25,7 @@ public class MovieEntity {
     @ManyToMany(mappedBy = "movies", cascade = CascadeType.REMOVE)
     private List<CharacterEntity> characters;
 
-    public MovieEntity(Long movie_id, String title, String image, Date realasedDate, Integer calification, Genre genre, List<Character> characters) {
+    public MovieEntity(Long movie_id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
         this.movie_id = movie_id;
         this.title = title;
         this.image = image;
