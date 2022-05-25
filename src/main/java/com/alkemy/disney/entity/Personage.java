@@ -11,6 +11,8 @@ import java.util.Set;
 @Entity
 @Table(name = "personage")
 public class Personage {
+
+    //This class is named 'personage' instead of 'character' because DB was having problems creating a table called 'character'...
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;

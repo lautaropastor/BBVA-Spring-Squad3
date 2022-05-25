@@ -19,8 +19,7 @@ public class Genre {
     @OneToMany(mappedBy="genre",
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE,
-                    CascadeType.REMOVE
+                    CascadeType.MERGE
             })
     @JoinColumn(name="FILM_ID", nullable=true)
     protected Set<Film> films;
@@ -31,5 +30,12 @@ public class Genre {
         this.id = id;
         this.name = name;
         this.imgUrl = imgUrl;
+    }
+
+    public Genre(Long id, String name, String imgUrl, Set<Film> films) {
+        this.id = id;
+        this.name = name;
+        this.imgUrl = imgUrl;
+        this.films = films;
     }
 }
