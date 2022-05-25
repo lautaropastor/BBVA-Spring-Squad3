@@ -42,7 +42,6 @@ public class MovieEntity {
     public MovieEntity (){
         characters = new ArrayList<>();
     }
-
     public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
         super();
         this.id = id;
@@ -62,6 +61,13 @@ public class MovieEntity {
         this.calification = calification;
         this.genre = genre;
         this.characters = characters;
+    }
+    public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification) {
+        this.id = id;
+        this.title = title;
+        this.image = image;
+        this.realasedDate = realasedDate;
+        this.calification = calification;
     }
     
     public void addCharacter (CharacterEntity character) {
