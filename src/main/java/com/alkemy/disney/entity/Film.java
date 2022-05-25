@@ -20,10 +20,10 @@ public class Film {
     @ManyToOne(fetch = FetchType.LAZY,
         cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE})
-    protected List<Genre> genres;
+    @JoinColumn(name="GENRE_ID", nullable=true)
+    protected Genre genre;
 
-    @ManyToMany(mappedBy = "films",
-            cascade = {
+    @ManyToMany(cascade = {
                 CascadeType.PERSIST,
                 CascadeType.MERGE
         })
@@ -35,18 +35,18 @@ public class Film {
     protected Set<Personage> personages;
     protected Film() {}
 
-    public Film(Long id, String title, String type, short rate, List<Genre> genres) {
+    public Film(Long id, String title, String type, short rate, Genre genre) {
         this.id = id;
         this.title = title;
         this.type = type;
         this.rate = rate;
-        this.genres = genres;
+        this.genre = genre;
     }
 
-    public Film(String title, String type, short rate, List<Genre> genres) {
+    public Film(String title, String type, short rate, Genre genre) {
         this.title = title;
         this.type = type;
         this.rate = rate;
-        this.genres = genres;
+        this.genre = genre;
     }
 }

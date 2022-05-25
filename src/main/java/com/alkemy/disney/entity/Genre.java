@@ -21,7 +21,6 @@ public class Genre {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    @JoinColumn(name="FILM_ID", nullable=true)
     protected Set<Film> films;
 
     protected Genre() {}
