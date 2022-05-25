@@ -17,11 +17,13 @@ public class Film {
     protected Long id;
     protected String title, type;
     protected short rate;
-    @OneToMany(mappedBy = "film",
-        cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.LAZY,
+        cascade = {CascadeType.PERSIST,
+                    CascadeType.MERGE})
     protected List<Genre> genres;
 
-    @ManyToMany(cascade = {
+    @ManyToMany(mappedBy = "films",
+            cascade = {
                 CascadeType.PERSIST,
                 CascadeType.MERGE
         })
