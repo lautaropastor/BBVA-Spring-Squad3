@@ -24,9 +24,7 @@ public class MovieEntity {
     @Column (nullable = false)
     private Integer calification;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = {
-            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
-    })
+    @ManyToOne()
     @JoinColumn(name = "genre_id", nullable = false)
     private GenreEntity genre;
 

@@ -21,9 +21,7 @@ public class GenreEntity {
     private String name;
     private String image;
 
-    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = {
-            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
-    })
+    @OneToMany(mappedBy = "genre")
     private List<MovieEntity> movies;
 
     public GenreEntity(String name, String image) {
