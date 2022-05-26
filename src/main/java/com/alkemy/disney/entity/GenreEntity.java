@@ -29,7 +29,6 @@ public class GenreEntity {
     public GenreEntity(String name, String image) {
         this.name = name;
         this.image = image;
-        this.movies = new ArrayList<>();
     }
 
     @Override
