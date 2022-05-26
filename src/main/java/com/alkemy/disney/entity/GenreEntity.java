@@ -6,11 +6,13 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="genres")
 @Getter @Setter
+@NoArgsConstructor
 public class GenreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +25,6 @@ public class GenreEntity {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
     })
     private List<MovieEntity> movies;
-
-    public GenreEntity() {
-    }
 
     public GenreEntity(long id, String name, String image) {
         this.id = id;
