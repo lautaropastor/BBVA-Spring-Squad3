@@ -1,15 +1,16 @@
 package com.alkemy.disney.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table (name = "movies")
 @Getter @Setter
+@NoArgsConstructor
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +24,7 @@ public class MovieEntity {
     @Column (nullable = false)
     private Integer calification;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = {
-            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
-    })
+    @ManyToOne()
     @JoinColumn(name = "genre_id", nullable = false)
     private GenreEntity genre;
 
@@ -37,25 +36,9 @@ public class MovieEntity {
             joinColumns = {@JoinColumn(name="movie_id")},
             inverseJoinColumns = {@JoinColumn(name="character_id")}
     )
-    private List<CharacterEntity> characters;
+    private Set<CharacterEntity> characters = new HashSet<>();
 
-    public MovieEntity (){
-        characters = new ArrayList<>();
-    }
-
-    public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
-        super();
-        this.id = id;
-        this.title = title;
-        this.image = image;
-        this.realasedDate = realasedDate;
-        this.calification = calification;
-        this.genre = genre;
-        this.characters = characters;
-    }
-
-    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
-        super();
+    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre, Set<CharacterEntity> characters) {
         this.title = title;
         this.image = image;
         this.realasedDate = realasedDate;

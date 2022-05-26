@@ -6,11 +6,13 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="genres")
 @Getter @Setter
+@NoArgsConstructor
 public class GenreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,19 +21,12 @@ public class GenreEntity {
     private String name;
     private String image;
 
-    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = {
-            CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
-    })
+    @OneToMany(mappedBy = "genre")
     private List<MovieEntity> movies;
 
-    public GenreEntity() {
-    }
-
-    public GenreEntity(long id, String name, String image) {
-        this.id = id;
+    public GenreEntity(String name, String image) {
         this.name = name;
         this.image = image;
-        this.movies = new ArrayList<>();
     }
 
     @Override
