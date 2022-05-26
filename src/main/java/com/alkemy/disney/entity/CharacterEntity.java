@@ -1,8 +1,8 @@
 package com.alkemy.disney.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,18 +35,16 @@ public class CharacterEntity implements Serializable {
     @ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
     })
-    private List<MovieEntity> movies;
+    private Set<MovieEntity> movies = new HashSet<>();
     
-    public CharacterEntity() {
-        movies = new ArrayList<>();
-    }
+    public CharacterEntity() {}
     
     public CharacterEntity(String name) {
         super();
         this.name = name;
     }
     
-    public CharacterEntity(String name, String image, Integer age, Double weight, String history, List<MovieEntity> movies) {
+    public CharacterEntity(String name, String image, Integer age, Double weight, String history, Set<MovieEntity> movies) {
         super();
         this.name = name;
         this.image = image;
