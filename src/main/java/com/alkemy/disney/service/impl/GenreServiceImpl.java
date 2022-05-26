@@ -28,7 +28,13 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreDTO putGenre(Long id, GenreDTO newDto) {
-        return null;
+        Optional<GenreEntity> genreEntity = genreRepository.findById(id);
+        if (!genreEntity.isPresent()) {
+            System.out.println("Genre ID not valid");
+        }
+        genreMapper.genreEntityDataUpdate(genreEntity.get(), newDto);
+        GenreEntity entitySaved = genreRepository.save(genreEntity.get());
+        return genreMapper.genreEntityToDTO(entitySaved);
 
     }
 
