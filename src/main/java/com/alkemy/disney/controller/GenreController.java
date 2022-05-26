@@ -28,6 +28,18 @@ public class GenreController {
         return ResponseEntity.ok().body(putGenre);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<GenreDTO> getGenreById(@PathVariable Long id){
+        GenreDTO genreDto = genreService.getGenreById(id);
+        return ResponseEntity.ok().body(genreDto);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteGenre(@PathVariable Long id){
+        genreService.deleteGenre(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 
 
 }
