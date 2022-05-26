@@ -1,9 +1,8 @@
 package com.alkemy.disney.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,13 +36,12 @@ public class MovieEntity {
             joinColumns = {@JoinColumn(name="movie_id")},
             inverseJoinColumns = {@JoinColumn(name="character_id")}
     )
-    private List<CharacterEntity> characters;
+    private Set<CharacterEntity> characters;
 
     public MovieEntity (){
-        characters = new ArrayList<>();
+        characters = new HashSet<>();
     }
-
-    public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+    public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification, GenreEntity genre, Set<CharacterEntity> characters) {
         super();
         this.id = id;
         this.title = title;
@@ -54,7 +52,7 @@ public class MovieEntity {
         this.characters = characters;
     }
 
-    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre, List<CharacterEntity> characters) {
+    public MovieEntity(String title, String image, Date realasedDate, Integer calification, GenreEntity genre, Set<CharacterEntity> characters) {
         super();
         this.title = title;
         this.image = image;
@@ -62,6 +60,13 @@ public class MovieEntity {
         this.calification = calification;
         this.genre = genre;
         this.characters = characters;
+    }
+    public MovieEntity(Long id, String title, String image, Date realasedDate, Integer calification) {
+        this.id = id;
+        this.title = title;
+        this.image = image;
+        this.realasedDate = realasedDate;
+        this.calification = calification;
     }
     
     public void addCharacter (CharacterEntity character) {
