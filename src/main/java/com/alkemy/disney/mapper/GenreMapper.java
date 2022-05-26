@@ -29,4 +29,13 @@ public class GenreMapper {
         entity.setImage(dto.getImage());
         entity.setName(dto.getName());
     }
+
+    public List<GenreDTO> genreEntityListToDTOList(List<GenreEntity> genreEntityList){
+        List<GenreDTO> genreDtoList = new ArrayList<>();
+
+        for (GenreEntity entity: genreEntityList) {
+            genreDtoList.add(this.genreEntityToDTO(entity));
+        }
+        return genreDtoList;
+    }
 }
