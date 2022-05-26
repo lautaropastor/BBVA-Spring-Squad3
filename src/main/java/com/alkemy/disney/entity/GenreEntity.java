@@ -26,8 +26,7 @@ public class GenreEntity {
     })
     private List<MovieEntity> movies;
 
-    public GenreEntity(long id, String name, String image) {
-        this.id = id;
+    public GenreEntity(String name, String image) {
         this.name = name;
         this.image = image;
         this.movies = new ArrayList<>();
