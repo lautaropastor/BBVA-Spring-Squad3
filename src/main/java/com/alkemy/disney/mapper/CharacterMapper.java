@@ -18,6 +18,7 @@ public class CharacterMapper {
             return null;
         }
         CharacterDTO characterDTO = new CharacterDTO();
+        characterDTO.setId(character.getId());
         characterDTO.setName(character.getName());
         characterDTO.setImage(character.getImage());
 
