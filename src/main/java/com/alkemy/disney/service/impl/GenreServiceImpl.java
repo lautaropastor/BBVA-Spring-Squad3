@@ -38,6 +38,20 @@ public class GenreServiceImpl implements GenreService {
 
     }
 
+    @Override
+    public void deleteGenre(Long id) {
+        this.genreRepository.deleteById(id);
+    }
+
+    @Override
+    public GenreDTO getGenreById(Long genreId) {
+        Optional<GenreEntity> genreEntity = this.genreRepository.findById(genreId);
+        if (!genreEntity.isPresent()) {
+            System.out.println("Genre ID not valid");
+        }
+        return genreMapper.genreEntityToDTO(genreEntity.get());
+    }
+
 
 
 
