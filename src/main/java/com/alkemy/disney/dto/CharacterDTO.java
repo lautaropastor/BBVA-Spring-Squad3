@@ -1,25 +1,25 @@
 package com.alkemy.disney.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.alkemy.disney.entity.MovieEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CharacterFullDTO implements Serializable {
+public class CharacterDTO implements Serializable {
     private Long id;
     private String image;
     private String name;
     private String history;
     private Integer age;
     private Double weight;
-    private List<MovieEntity> movies;
+    private Set<MovieEntity> movies;
 
-    public CharacterFullDTO(){
-        movies = new ArrayList<>();
+    public CharacterDTO(){
+        movies = new HashSet<>();
     }
 
     @Override
