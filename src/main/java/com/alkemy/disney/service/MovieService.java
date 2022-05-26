@@ -8,4 +8,5 @@ import java.util.Set;
 public interface MovieService {
 
     List<MovieDTO> getMovies();
+    MovieDTO getMovieById(Long id);
 }
