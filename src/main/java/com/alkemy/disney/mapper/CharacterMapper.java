@@ -1,10 +1,12 @@
 package com.alkemy.disney.mapper;
 
 import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterFullDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,6 +45,18 @@ public class CharacterMapper {
         return characterFullDTO;
     }
 
+    public static CharacterDetailsDTO toDetailsDTO (CharacterEntity character){
+        CharacterDetailsDTO characterDetailsDTO = new CharacterDetailsDTO();
+        characterDetailsDTO.setId(character.getId());
+        characterDetailsDTO.setImage(character.getImage());
+        characterDetailsDTO.setName(character.getName());
+        characterDetailsDTO.setAge(character.getAge());
+        characterDetailsDTO.setWeight(character.getWeight());
+        characterDetailsDTO.setHistory(character.getHistory());
+
+        return characterDetailsDTO;
+    }
+
     public static CharacterEntity toEntity (CharacterFullDTO characterFullDTO) {
         if (characterFullDTO == null) {
             return null;
@@ -76,5 +90,13 @@ public class CharacterMapper {
         }
 
         return charactersDTOSet;
+    }
+
+    public static List<CharacterDetailsDTO> toListCharacterDetails (List<CharacterEntity> list) {
+        List<CharacterDetailsDTO> dtoList = new ArrayList<>();
+        for (CharacterEntity character: list) {
+            dtoList.add(toDetailsDTO(character));
+        }
+        return dtoList;
     }
 }
