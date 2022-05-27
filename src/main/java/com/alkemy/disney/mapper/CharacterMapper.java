@@ -37,16 +37,16 @@ public class CharacterMapper {
         characterFullDTO.setWeight(character.getWeight());
         characterFullDTO.setHistory(character.getHistory());
         Set<MovieEntity> listaParcial = new HashSet<>();
-        for (MovieEntity movie:character.getMovies()) {
+       /* for (MovieEntity movie:character.getMovies()) {
             listaParcial.add(new MovieEntity(movie.getId(),movie.getTitle(), movie.getImage(), movie.getRealasedDate(), movie.getCalification()));
         }
-        characterFullDTO.setMovies(listaParcial);
+        characterFullDTO.setMovies(listaParcial);*/
         //characterFullDTO.setMovies(character.getMovies());
 
         return characterFullDTO;
     }
 
-    public static CharacterDetailsDTO toDetailsDTO (CharacterEntity character){
+    public static CharacterDetailsDTO toDetailsDTO (CharacterEntity character) {
         CharacterDetailsDTO characterDetailsDTO = new CharacterDetailsDTO();
         characterDetailsDTO.setId(character.getId());
         characterDetailsDTO.setImage(character.getImage());
@@ -70,6 +70,21 @@ public class CharacterMapper {
         character.setWeight(characterFullDTO.getWeight());
         character.setHistory(characterFullDTO.getHistory());
         character.setMovies(characterFullDTO.getMovies());
+
+        return character;
+    }
+
+    public static CharacterEntity toEntity (CharacterDetailsDTO characterDetailsDTO) {
+        if (characterDetailsDTO == null) {
+            return null;
+        }
+        CharacterEntity character = new CharacterEntity();
+        character.setId(characterDetailsDTO.getId());
+        character.setImage(characterDetailsDTO.getImage());
+        character.setName(characterDetailsDTO.getName());
+        character.setAge(characterDetailsDTO.getAge());
+        character.setWeight(characterDetailsDTO.getWeight());
+        character.setHistory(characterDetailsDTO.getHistory());
 
         return character;
     }
@@ -99,5 +114,20 @@ public class CharacterMapper {
             dtoList.add(toDetailsDTO(character));
         }
         return dtoList;
+    }
+    public static Set<CharacterDetailsDTO> toListCharacterDetails (Set<CharacterEntity> list) {
+        Set<CharacterDetailsDTO> dtoList = new HashSet<>();
+        for (CharacterEntity character: list) {
+            dtoList.add(toDetailsDTO(character));
+        }
+        return dtoList;
+    }
+
+    public static Set<CharacterEntity> toListEntity (Set<CharacterDetailsDTO> characterDetailsDTOS) {
+        Set<CharacterEntity> characterEntities = new HashSet<>();
+        for (CharacterDetailsDTO characterDetailsDTO : characterDetailsDTOS) {
+            characterEntities.add(toEntity(characterDetailsDTO));
+        }
+        return  characterEntities;
     }
 }

@@ -1,6 +1,7 @@
 package com.alkemy.disney.controller;
 
 import com.alkemy.disney.dto.MovieDTO;
+import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,4 +27,9 @@ public class MovieController {
 
     @DeleteMapping(path = "{id}")
     public void deleteMovieById (@PathVariable Long id) {movieService.deleteMovieById(id);}
+
+    @PostMapping()
+    public MovieDTO postMovie (@RequestBody MovieDTO movie) {
+        return movieService.postMovie(movie);
+    }
 }

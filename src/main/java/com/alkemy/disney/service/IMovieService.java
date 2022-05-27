@@ -9,4 +9,5 @@ public interface IMovieService {
     List<MovieDTO> getMovies();
     MovieDTO getMovieById(Long id);
     void deleteMovieById(Long id);
+    MovieDTO postMovie(MovieDTO movie);
 }

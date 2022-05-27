@@ -16,14 +16,17 @@ public class MovieServiceImpl implements IMovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private MovieMapper movieMapper;
+
     public List<MovieDTO> getMovies() {
-        List<MovieDTO> listMoviesDto= MovieMapper.toListDto((List<MovieEntity>) movieRepository.findAll());
+        List<MovieDTO> listMoviesDto= movieMapper.toListDto((List<MovieEntity>) movieRepository.findAll());
         return listMoviesDto;
     }
 
     public MovieDTO getMovieById(Long id) {
         MovieEntity movie = movieRepository.findById(id).orElseThrow();
-        return MovieMapper.toDTO(movie);
+        return movieMapper.toDTO(movie);
     }
 
     public void deleteMovieById (Long id) {
@@ -32,5 +35,11 @@ public class MovieServiceImpl implements IMovieService {
             throw new NullPointerException();
         }
         movieRepository.deleteById(id);
+    }
+
+    public MovieDTO postMovie (MovieDTO movieDTO) {
+        MovieEntity movie = movieMapper.toEntity(movieDTO);
+        MovieEntity movieSaved = movieRepository.save(movie);
+        return movieMapper.toDTO(movieSaved);
     }
 }
