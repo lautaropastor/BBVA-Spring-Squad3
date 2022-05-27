@@ -1,6 +1,7 @@
 package com.alkemy.disney.controller;
 
 import com.alkemy.disney.dto.MovieDTO;
+import com.alkemy.disney.dto.MovieWithoutCharactersDTO;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class MovieController {
     @PostMapping()
     public MovieDTO postMovie (@RequestBody MovieDTO movie) {
         return movieService.postMovie(movie);
+    }
+
+    @PutMapping(path = "{id}")
+    public MovieDTO putMovie (@PathVariable Long id,@RequestBody MovieWithoutCharactersDTO movie) {
+        return movieService.putMovie(id, movie);
     }
 }
