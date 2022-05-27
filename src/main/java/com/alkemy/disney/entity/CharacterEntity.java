@@ -5,11 +5,13 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="characters")
 @Getter @Setter
+@NoArgsConstructor
 public class CharacterEntity implements Serializable {
 
     @Id
@@ -36,13 +38,6 @@ public class CharacterEntity implements Serializable {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
     })
     private Set<MovieEntity> movies = new HashSet<>();
-    
-    public CharacterEntity() {}
-    
-    public CharacterEntity(String name) {
-        super();
-        this.name = name;
-    }
     
     public CharacterEntity(String name, String image, Integer age, Double weight, String history, Set<MovieEntity> movies) {
         super();
