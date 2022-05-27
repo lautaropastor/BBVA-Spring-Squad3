@@ -4,15 +4,14 @@ import com.alkemy.disney.dto.MovieDTO;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.mapper.MovieMapper;
 import com.alkemy.disney.repository.specifications.MovieRepository;
-import com.alkemy.disney.service.MovieService;
+import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
-public class MovieServiceImpl implements MovieService {
+public class MovieServiceImpl implements IMovieService {
 
     @Autowired
     private MovieRepository movieRepository;
@@ -22,9 +21,16 @@ public class MovieServiceImpl implements MovieService {
         return listMoviesDto;
     }
 
-    @Override
     public MovieDTO getMovieById(Long id) {
         MovieEntity movie = movieRepository.findById(id).orElseThrow();
         return MovieMapper.toDTO(movie);
+    }
+
+    public void deleteMovieById (Long id) {
+        boolean exist = movieRepository.existsById(id);
+        if(!exist) {
+            throw new NullPointerException();
+        }
+        movieRepository.deleteById(id);
     }
 }

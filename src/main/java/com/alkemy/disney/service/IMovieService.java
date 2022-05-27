@@ -3,10 +3,10 @@ package com.alkemy.disney.service;
 import com.alkemy.disney.dto.MovieDTO;
 
 import java.util.List;
-import java.util.Set;
 
-public interface MovieService {
+public interface IMovieService {
 
     List<MovieDTO> getMovies();
     MovieDTO getMovieById(Long id);
+    void deleteMovieById(Long id);
 }
