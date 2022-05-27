@@ -30,21 +30,21 @@ public class CharacterMapper {
         if (character == null) {
             return null;
         }
-        CharacterDetailsDTO characterFullDTO = new CharacterDetailsDTO();
-        characterFullDTO.setId(character.getId());
-        characterFullDTO.setImage(character.getImage());
-        characterFullDTO.setName(character.getName());
-        characterFullDTO.setAge(character.getAge());
-        characterFullDTO.setWeight(character.getWeight());
-        characterFullDTO.setHistory(character.getHistory());
+        CharacterDetailsDTO characterDetailsDTO = new CharacterDetailsDTO();
+        characterDetailsDTO.setId(character.getId());
+        characterDetailsDTO.setImage(character.getImage());
+        characterDetailsDTO.setName(character.getName());
+        characterDetailsDTO.setAge(character.getAge());
+        characterDetailsDTO.setWeight(character.getWeight());
+        characterDetailsDTO.setHistory(character.getHistory());
         Set<MovieEntity> listaParcial = new HashSet<>();
 //        for (MovieEntity movie:character.getMovies()) {
 //            listaParcial.add(new MovieEntity(movie.getId(),movie.getTitle(), movie.getImage(), movie.getRealasedDate(), movie.getCalification()));
 //        }
-        characterFullDTO.setMovies(listaParcial);
+        characterDetailsDTO.setMovies(listaParcial);
         //characterFullDTO.setMovies(character.getMovies());
 
-        return characterFullDTO;
+        return characterDetailsDTO;
     }
 
     public static CharacterWithoutMoviesDTO toWithoutMoviesDTO (CharacterEntity character){
@@ -59,18 +59,18 @@ public class CharacterMapper {
         return characterWithoutMoviesDTO;
     }
 
-    public static CharacterEntity toEntity (CharacterDetailsDTO characterFullDTO) {
-        if (characterFullDTO == null) {
+    public static CharacterEntity toEntity (CharacterDetailsDTO characterDetailsDTO) {
+        if (characterDetailsDTO == null) {
             return null;
         }
         CharacterEntity character = new CharacterEntity();
-        character.setId(characterFullDTO.getId());
-        character.setImage(characterFullDTO.getImage());
-        character.setName(characterFullDTO.getName());
-        character.setAge(characterFullDTO.getAge());
-        character.setWeight(characterFullDTO.getWeight());
-        character.setHistory(characterFullDTO.getHistory());
-        character.setMovies(characterFullDTO.getMovies());
+        character.setId(characterDetailsDTO.getId());
+        character.setImage(characterDetailsDTO.getImage());
+        character.setName(characterDetailsDTO.getName());
+        character.setAge(characterDetailsDTO.getAge());
+        character.setWeight(characterDetailsDTO.getWeight());
+        character.setHistory(characterDetailsDTO.getHistory());
+        character.setMovies(characterDetailsDTO.getMovies());
 
         return character;
     }
@@ -84,14 +84,24 @@ public class CharacterMapper {
         return characterDTOSet;
     }
 
-    public static Collection<CharacterDTO> toListDTO (List<CharacterEntity> setEntities) {
-        Collection<CharacterDTO> charactersDTOSet = new HashSet<>();
+    public static Set<CharacterDTO> toSetDTO (List<CharacterEntity> setEntities) {
+        Set<CharacterDTO> charactersDTOSet = new HashSet<>();
 
         for (CharacterEntity character : setEntities) {
             charactersDTOSet.add(toDTO(character));
         }
 
         return charactersDTOSet;
+    }
+    
+    public static List<CharacterDTO> toListDTO (List<CharacterEntity> setEntities) {
+        List<CharacterDTO> charactersDTOList = new ArrayList<>();
+
+        for (CharacterEntity character : setEntities) {
+            charactersDTOList.add(toDTO(character));
+        }
+
+        return charactersDTOList;
     }
 
     public static List<CharacterDetailsDTO> toListCharacterDetails (List<CharacterEntity> list) {

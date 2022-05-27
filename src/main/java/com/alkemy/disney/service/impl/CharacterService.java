@@ -23,7 +23,7 @@ public class CharacterService implements ICharacterService{
     @Transactional
     public Collection<CharacterDTO> getAllCharacters() throws Exception {
         List<CharacterEntity> charactersFull = characterRepository.findAll();
-        Collection<CharacterDTO> characterList = CharacterMapper.toListDTO(charactersFull);
+        Collection<CharacterDTO> characterList = CharacterMapper.toSetDTO(charactersFull);
         return characterList;
     }
 
