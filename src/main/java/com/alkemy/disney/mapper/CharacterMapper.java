@@ -7,6 +7,7 @@ import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,9 +38,9 @@ public class CharacterMapper {
         characterFullDTO.setWeight(character.getWeight());
         characterFullDTO.setHistory(character.getHistory());
         Set<MovieEntity> listaParcial = new HashSet<>();
-        for (MovieEntity movie:character.getMovies()) {
-            listaParcial.add(new MovieEntity(movie.getId(),movie.getTitle(), movie.getImage(), movie.getRealasedDate(), movie.getCalification()));
-        }
+//        for (MovieEntity movie:character.getMovies()) {
+//            listaParcial.add(new MovieEntity(movie.getId(),movie.getTitle(), movie.getImage(), movie.getRealasedDate(), movie.getCalification()));
+//        }
         characterFullDTO.setMovies(listaParcial);
         //characterFullDTO.setMovies(character.getMovies());
 
@@ -83,8 +84,8 @@ public class CharacterMapper {
         return characterDTOSet;
     }
 
-    public static Set<CharacterDTO> toListDTO (List<CharacterEntity> setEntities) {
-        Set<CharacterDTO> charactersDTOSet = new HashSet<>();
+    public static Collection<CharacterDTO> toListDTO (List<CharacterEntity> setEntities) {
+        Collection<CharacterDTO> charactersDTOSet = new HashSet<>();
 
         for (CharacterEntity character : setEntities) {
             charactersDTOSet.add(toDTO(character));
