@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/disney/api/genres")
 public class GenreController {
 
-    @Autowired
+    @Autowired()
     private GenreService genreService;
 
     @PostMapping
@@ -23,9 +23,15 @@ public class GenreController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenreDTO> putGenre(@PathVariable Long id, @RequestBody GenreDTO genreDto){
+    public ResponseEntity<GenreDTO> putGenre(@PathVariable Long id, @RequestBody GenreDTO genreDto) {
         GenreDTO putGenre = genreService.putGenre(id, genreDto);
         return ResponseEntity.ok().body(putGenre);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<GenreDTO>> getGenres(){
+        List<GenreDTO> genreDtoList = genreService.getAllGenres();
+        return ResponseEntity.ok().body(genreDtoList);
     }
 
     @GetMapping("/{id}")
@@ -35,9 +41,9 @@ public class GenreController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGenre(@PathVariable Long id){
+    public ResponseEntity<Void> deleteGenre(@PathVariable Long id)  {
         genreService.deleteGenre(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.ok().build();
     }
 
 
