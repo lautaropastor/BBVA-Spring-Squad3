@@ -7,6 +7,7 @@ import com.alkemy.disney.repository.specifications.GenreRepository;
 import com.alkemy.disney.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +20,8 @@ public class GenreServiceImpl implements GenreService {
     @Autowired
     private GenreRepository genreRepository;
 
-
-    public GenreDTO postGenre(GenreDTO genreDto) {
+    @Override
+    public GenreDTO postGenre(GenreDTO genreDto){
         GenreEntity genreEntity = genreMapper.genreDTOToEntity(genreDto);
         GenreEntity entitySaved = genreRepository.save(genreEntity);
         return genreMapper.genreEntityToDTO(entitySaved);
@@ -42,7 +43,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreDTO getGenreById(Long genreId){
-        Optional<GenreEntity> genreEntity = this.genreRepository.findById(genreId);
+        Optional<GenreEntity> genreEntity = genreRepository.findById(genreId);
         return genreMapper.genreEntityToDTO(genreEntity.get());
     }
 
