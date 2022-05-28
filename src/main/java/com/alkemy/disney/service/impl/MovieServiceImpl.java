@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MovieServiceImpl implements IMovieService {
@@ -20,8 +21,8 @@ public class MovieServiceImpl implements IMovieService {
     @Autowired
     private MovieMapper movieMapper;
 
-    public List<MovieDTO> getMovies() {
-        List<MovieDTO> listMoviesDto= movieMapper.toListDto((List<MovieEntity>) movieRepository.findAll());
+    public Set<MovieDTO> getMovies() {
+        Set<MovieDTO> listMoviesDto= movieMapper.toListDto((List<MovieEntity>) movieRepository.findAll());
         return listMoviesDto;
     }
 

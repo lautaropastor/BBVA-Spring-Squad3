@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/disney/api/movies")
@@ -19,7 +20,7 @@ public class MovieController {
     private IMovieService movieService;
 
     @GetMapping()
-    public ResponseEntity<List<MovieDTO>> getMovies() {
+    public ResponseEntity<Set<MovieDTO>> getMovies() {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.getMovies());
     }
 
