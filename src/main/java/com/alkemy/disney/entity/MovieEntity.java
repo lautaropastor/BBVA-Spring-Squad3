@@ -1,5 +1,6 @@
 package com.alkemy.disney.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.*;
 
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Table (name = "movies")
 @Getter @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties(value = "characters") // TEMPORAL hasta encontrar solución efectiva a petición recursiva.
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
