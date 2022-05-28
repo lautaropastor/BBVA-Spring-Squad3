@@ -38,7 +38,7 @@ public class CharacterMapper {
         characterFullDTO.setHistory(character.getHistory());
         Set<MovieEntity> listaParcial = new HashSet<>();
         for (MovieEntity movie:character.getMovies()) {
-            listaParcial.add(new MovieEntity(movie.getId(),movie.getTitle(), movie.getImage(), movie.getRealasedDate(), movie.getCalification()));
+            //listaParcial.add(new MovieEntity(movie.getId(),movie.getTitle(), movie.getImage(), movie.getRealasedDate(), movie.getCalification()));
         }
         characterFullDTO.setMovies(listaParcial);
         //characterFullDTO.setMovies(character.getMovies());

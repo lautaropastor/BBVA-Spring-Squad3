@@ -29,9 +29,6 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public GenreDTO putGenre(Long genreId, GenreDTO newDto) {
         Optional<GenreEntity> genreEntity = genreRepository.findById(genreId);
-        if (!genreEntity.isPresent()) {
-            System.out.println(("Genre Id "+ genreId + " does not exist"));
-        }
         genreMapper.genreEntityDataUpdate(genreEntity.get(), newDto);
         GenreEntity entitySaved = genreRepository.save(genreEntity.get());
         return genreMapper.genreEntityToDTO(entitySaved);
@@ -40,18 +37,12 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public void deleteGenre(Long genreId){
         Optional<GenreEntity> genreEntity = this.genreRepository.findById(genreId);
-        if (!genreEntity.isPresent()) {
-            System.out.println(("Genre with Id "+ genreId + " does not exist"));
-        }
         this.genreRepository.deleteById(genreId);
     }
 
     @Override
     public GenreDTO getGenreById(Long genreId){
         Optional<GenreEntity> genreEntity = this.genreRepository.findById(genreId);
-        if (!genreEntity.isPresent()) {
-            System.out.println(("Genre with Id "+ genreId + " does not exist"));
-        }
         return genreMapper.genreEntityToDTO(genreEntity.get());
     }
 

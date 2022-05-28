@@ -5,25 +5,29 @@ import com.alkemy.disney.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Validated
 @RequestMapping("/disney/api/genres")
 public class GenreController {
+
 
     @Autowired()
     private GenreService genreService;
 
     @PostMapping
-    public ResponseEntity<GenreDTO> postGenre(@RequestBody GenreDTO genreDto) {
+    public ResponseEntity<GenreDTO> postGenre(@Valid @RequestBody GenreDTO genreDto) {
         GenreDTO postGenre = genreService.postGenre(genreDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(postGenre);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenreDTO> putGenre(@PathVariable Long id, @RequestBody GenreDTO genreDto) {
+    public ResponseEntity<GenreDTO> putGenre(@Valid @PathVariable Long id, @RequestBody GenreDTO genreDto) {
         GenreDTO putGenre = genreService.putGenre(id, genreDto);
         return ResponseEntity.ok().body(putGenre);
     }
