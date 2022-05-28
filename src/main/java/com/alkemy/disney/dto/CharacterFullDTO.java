@@ -7,31 +7,17 @@ import java.util.Set;
 import com.alkemy.disney.entity.MovieEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter @Setter
+@ToString
 public class CharacterFullDTO implements Serializable {
+    // TODO: Crear el método correspondiente en el mapper
     private Long id;
     private String image;
     private String name;
     private String history;
     private Integer age;
     private Double weight;
-    private Set<MovieEntity> movies;
-
-    public CharacterFullDTO(){
-        movies = new HashSet<>();
-    }
-
-    @Override
-    public String toString() {
-        return "CharacterFullDTO{" +
-                "id=" + id +
-                ", image='" + image + '\'' +
-                ", name='" + name + '\'' +
-                ", age='" + age + '\'' +
-                ", weight='" + weight + '\'' +
-                ", history='" + history + '\'' +
-                ", movies=" + movies +
-                '}';
-    }
+    private Set<MovieEntity> movies = new HashSet<>();
 }

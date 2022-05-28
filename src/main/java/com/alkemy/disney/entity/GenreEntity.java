@@ -19,9 +19,9 @@ public class GenreEntity {
     private long id;
     private String name;
     private String image;
-
-    @OneToMany(mappedBy = "genre")
-    private List<MovieEntity> movies;
+// Comentado hasta que le demos un uso - evita recursividad
+//    @OneToMany(mappedBy = "genre")
+//    private List<MovieEntity> movies;
 
     public GenreEntity(String name, String image) {
         this.name = name;
@@ -34,7 +34,6 @@ public class GenreEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", image='" + image + '\'' +
-                ", movies=" + movies +
                 '}';
     }
 }

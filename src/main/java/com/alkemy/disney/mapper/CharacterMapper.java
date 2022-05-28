@@ -1,6 +1,7 @@
 package com.alkemy.disney.mapper;
 
 import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterFullDTO;
 import com.alkemy.disney.entity.CharacterEntity;
@@ -25,10 +26,34 @@ public class CharacterMapper {
         return characterDTO;
     }
 
-    public static CharacterFullDTO toFullDTO(CharacterEntity character) {
+    public static CharacterDetailsDTO toDetailsDTO(CharacterEntity character) {
         if (character == null) {
             return null;
         }
+        CharacterDetailsDTO characterDetailsDTO = new CharacterDetailsDTO();
+        characterDetailsDTO.setImage(character.getImage());
+        characterDetailsDTO.setName(character.getName());
+        characterDetailsDTO.setAge(character.getAge());
+        characterDetailsDTO.setWeight(character.getWeight());
+        characterDetailsDTO.setHistory(character.getHistory());
+        characterDetailsDTO.setMovies(character.getMovies());
+
+        return characterDetailsDTO;
+    }
+
+    public static CharacterWithoutMoviesDTO toWithoutMoviesDTO (CharacterEntity character){
+        CharacterWithoutMoviesDTO characterWithoutMoviesDTO = new CharacterWithoutMoviesDTO();
+        characterWithoutMoviesDTO.setId(character.getId());
+        characterWithoutMoviesDTO.setImage(character.getImage());
+        characterWithoutMoviesDTO.setName(character.getName());
+        characterWithoutMoviesDTO.setAge(character.getAge());
+        characterWithoutMoviesDTO.setWeight(character.getWeight());
+        characterWithoutMoviesDTO.setHistory(character.getHistory());
+
+        return characterWithoutMoviesDTO;
+    }
+
+    public static CharacterFullDTO toFullDTO (CharacterEntity character){
         CharacterFullDTO characterFullDTO = new CharacterFullDTO();
         characterFullDTO.setId(character.getId());
         characterFullDTO.setImage(character.getImage());
@@ -36,29 +61,28 @@ public class CharacterMapper {
         characterFullDTO.setAge(character.getAge());
         characterFullDTO.setWeight(character.getWeight());
         characterFullDTO.setHistory(character.getHistory());
-        Set<MovieEntity> listaParcial = new HashSet<>();
-        for (MovieEntity movie:character.getMovies()) {
-            //listaParcial.add(new MovieEntity(movie.getId(),movie.getTitle(), movie.getImage(), movie.getRealasedDate(), movie.getCalification()));
-        }
-        characterFullDTO.setMovies(listaParcial);
-        //characterFullDTO.setMovies(character.getMovies());
+        characterFullDTO.setMovies(character.getMovies());
 
         return characterFullDTO;
     }
 
-    public static CharacterDetailsDTO toDetailsDTO (CharacterEntity character){
-        CharacterDetailsDTO characterDetailsDTO = new CharacterDetailsDTO();
-        characterDetailsDTO.setId(character.getId());
-        characterDetailsDTO.setImage(character.getImage());
-        characterDetailsDTO.setName(character.getName());
-        characterDetailsDTO.setAge(character.getAge());
-        characterDetailsDTO.setWeight(character.getWeight());
-        characterDetailsDTO.setHistory(character.getHistory());
+    public static CharacterEntity DetailsDTOtoEntity (CharacterDetailsDTO characterDetailsDTO) {
+        if (characterDetailsDTO == null) {
+            return null;
+        }
+        CharacterEntity character = new CharacterEntity();
+//        character.setId(characterDetailsDTO.getId());
+        character.setImage(characterDetailsDTO.getImage());
+        character.setName(characterDetailsDTO.getName());
+        character.setAge(characterDetailsDTO.getAge());
+        character.setWeight(characterDetailsDTO.getWeight());
+        character.setHistory(characterDetailsDTO.getHistory());
+        character.setMovies(characterDetailsDTO.getMovies());
 
-        return characterDetailsDTO;
+        return character;
     }
 
-    public static CharacterEntity toEntity (CharacterFullDTO characterFullDTO) {
+    public static CharacterEntity FullDTOtoEntity (CharacterFullDTO characterFullDTO) {
         if (characterFullDTO == null) {
             return null;
         }
@@ -74,16 +98,16 @@ public class CharacterMapper {
         return character;
     }
 
-    public static Set<CharacterFullDTO> toListFullDTO (List<CharacterEntity> setEntities) {
-        Set<CharacterFullDTO> characterDTOSet = new HashSet<>();
+    public static Set<CharacterDetailsDTO> toListFullDTO (List<CharacterEntity> setEntities) {
+        Set<CharacterDetailsDTO> characterDTOSet = new HashSet<>();
 
         for (CharacterEntity character : setEntities) {
-            characterDTOSet.add(toFullDTO(character));
+            characterDTOSet.add(toDetailsDTO(character));
         }
         return characterDTOSet;
     }
 
-    public static Set<CharacterDTO> toListDTO (List<CharacterEntity> setEntities) {
+    public static Set<CharacterDTO> toSetDTO (List<CharacterEntity> setEntities) {
         Set<CharacterDTO> charactersDTOSet = new HashSet<>();
 
         for (CharacterEntity character : setEntities) {
@@ -93,8 +117,18 @@ public class CharacterMapper {
         return charactersDTOSet;
     }
 
-    public static List<CharacterDetailsDTO> toListCharacterDetails (List<CharacterEntity> list) {
-        List<CharacterDetailsDTO> dtoList = new ArrayList<>();
+    public static List<CharacterDTO> toListDTO (List<CharacterEntity> setEntities) {
+        List<CharacterDTO> charactersDTOList = new ArrayList<>();
+
+        for (CharacterEntity character : setEntities) {
+            charactersDTOList.add(toDTO(character));
+        }
+
+        return charactersDTOList;
+    }
+
+    public static Set<CharacterDetailsDTO> toListCharacterDetails (Set<CharacterEntity> list) {
+        Set<CharacterDetailsDTO> dtoList = new HashSet<>();
         for (CharacterEntity character: list) {
             dtoList.add(toDetailsDTO(character));
         }
