@@ -21,13 +21,13 @@ public class GenreController {
     private GenreService genreService;
 
     @PostMapping
-    public ResponseEntity<GenreDTO> postGenre(@Valid @RequestBody GenreDTO genreDto) {
+    public ResponseEntity<GenreDTO> postGenre(@Valid @RequestBody GenreDTO genreDto){
         GenreDTO postGenre = genreService.postGenre(genreDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(postGenre);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenreDTO> putGenre(@Valid @PathVariable Long id, @RequestBody GenreDTO genreDto) {
+    public ResponseEntity<GenreDTO> putGenre(@Valid @PathVariable Long id, @RequestBody GenreDTO genreDto){
         GenreDTO putGenre = genreService.putGenre(id, genreDto);
         return ResponseEntity.ok().body(putGenre);
     }
@@ -45,9 +45,9 @@ public class GenreController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGenre(@PathVariable Long id)  {
+    public ResponseEntity<String> deleteGenre(@PathVariable Long id)  {
         genreService.deleteGenre(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Genre Deleted");
     }
 
 
