@@ -104,8 +104,8 @@ public class CharacterMapper {
         return charactersDTOList;
     }
 
-    public static List<CharacterDetailsDTO> toListCharacterDetails (List<CharacterEntity> list) {
-        List<CharacterDetailsDTO> dtoList = new ArrayList<>();
+    public static Set<CharacterDetailsDTO> toListCharacterDetails (Set<CharacterEntity> list) {
+        Set<CharacterDetailsDTO> dtoList = new HashSet<>();
         for (CharacterEntity character: list) {
             dtoList.add(toDetailsDTO(character));
         }
