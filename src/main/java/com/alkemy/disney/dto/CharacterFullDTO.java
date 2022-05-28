@@ -7,9 +7,13 @@ import java.util.Set;
 import com.alkemy.disney.entity.MovieEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter @Setter
-public class CharacterDetailsDTO implements Serializable {
+@ToString
+public class CharacterFullDTO implements Serializable {
+    // TODO: Crear el método correspondiente en el mapper
+    private Long id;
     private String image;
     private String name;
     private String history;
