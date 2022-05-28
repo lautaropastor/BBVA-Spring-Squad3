@@ -30,7 +30,7 @@ public class GenreMapper {
         entity.setName(dto.getName());
     }
 
-    public List<GenreDTO> genreEntityListToDTOList(List<GenreEntity> genreEntityList){
+    public List<GenreDTO> entityListToDTOList(List<GenreEntity> genreEntityList){
         List<GenreDTO> genreDtoList = new ArrayList<>();
 
         for (GenreEntity entity: genreEntityList) {
