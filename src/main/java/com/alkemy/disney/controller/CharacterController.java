@@ -77,4 +77,7 @@ public class CharacterController {
         
         return ResponseEntity.status(statusCode).body(isDeleted);
     }
+    
+    // TODO: @PatchMapping
+    
 }
