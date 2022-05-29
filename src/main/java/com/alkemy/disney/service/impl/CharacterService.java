@@ -21,7 +21,7 @@ public class CharacterService implements ICharacterService{
 
     @Override
     @Transactional
-    public Collection<CharacterDTO> getAllCharacters() throws Exception {
+    public Collection<CharacterDTO> getAllCharacters(){
         List<CharacterEntity> charactersFull = characterRepository.findAll();
         Collection<CharacterDTO> characterList = CharacterMapper.toSetDTO(charactersFull);
         return characterList;
@@ -29,7 +29,7 @@ public class CharacterService implements ICharacterService{
 
     @Override
     @Transactional
-    public CharacterDetailsDTO getCharacterById(Long id) throws Exception {
+    public CharacterDetailsDTO getCharacterById(Long id){
         CharacterEntity characterEntity = characterRepository.getById(id);
         CharacterDetailsDTO characterDetails = CharacterMapper.toDetailsDTO(characterEntity);
         return characterDetails;
@@ -37,7 +37,7 @@ public class CharacterService implements ICharacterService{
 
     @Override
     @Transactional
-    public CharacterFullDTO saveCharacter(CharacterDetailsDTO newCharacter) throws Exception {
+    public CharacterFullDTO saveCharacter(CharacterDetailsDTO newCharacter){
         CharacterEntity characterEntity = CharacterMapper.DetailsDTOtoEntity(newCharacter);
         CharacterEntity characterEntitySaved = characterRepository.save(characterEntity);
         CharacterFullDTO characterFullDTO = CharacterMapper.toFullDTO(characterEntitySaved);
@@ -46,7 +46,7 @@ public class CharacterService implements ICharacterService{
 
     @Override
     @Transactional
-    public CharacterFullDTO totalUpdateCharacter(CharacterFullDTO characterWithChanges) throws Exception {
+    public CharacterFullDTO totalUpdateCharacter(CharacterFullDTO characterWithChanges){
         CharacterEntity characterEntity = CharacterMapper.FullDTOtoEntity(characterWithChanges);
         CharacterEntity updatedCharacter = characterRepository.save(characterEntity);
         CharacterFullDTO characterFullDTO = CharacterMapper.toFullDTO(updatedCharacter);
@@ -55,7 +55,7 @@ public class CharacterService implements ICharacterService{
 
     @Override
     @Transactional
-    public boolean deleteCharacter(Long id) throws Exception {
+    public boolean deleteCharacter(Long id){
         if(!characterRepository.existsById(id)) {
             return false;
         }

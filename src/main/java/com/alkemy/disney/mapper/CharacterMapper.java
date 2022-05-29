@@ -37,7 +37,7 @@ public class CharacterMapper {
         characterDetailsDTO.setWeight(character.getWeight());
         characterDetailsDTO.setHistory(character.getHistory());
         characterDetailsDTO.setMovies(character.getMovies());
-        
+
         return characterDetailsDTO;
     }
 
@@ -52,7 +52,7 @@ public class CharacterMapper {
 
         return characterWithoutMoviesDTO;
     }
-    
+
     public static CharacterFullDTO toFullDTO (CharacterEntity character){
         CharacterFullDTO characterFullDTO = new CharacterFullDTO();
         characterFullDTO.setId(character.getId());
@@ -81,7 +81,7 @@ public class CharacterMapper {
 
         return character;
     }
-    
+
     public static CharacterEntity FullDTOtoEntity (CharacterFullDTO characterFullDTO) {
         if (characterFullDTO == null) {
             return null;
@@ -116,7 +116,7 @@ public class CharacterMapper {
 
         return charactersDTOSet;
     }
-    
+
     public static List<CharacterDTO> toListDTO (List<CharacterEntity> setEntities) {
         List<CharacterDTO> charactersDTOList = new ArrayList<>();
 

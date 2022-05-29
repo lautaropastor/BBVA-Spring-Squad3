@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/disney/api/characters")
 public class CharacterController {
@@ -27,7 +29,7 @@ public class CharacterController {
     ICharacterService characterService;
     
     @GetMapping
-    public ResponseEntity<Collection<CharacterDTO>> getAllCharacters() throws Exception {
+    public ResponseEntity<Collection<CharacterDTO>> getAllCharacters(){
        
         Collection<CharacterDTO> characterList = characterService.getAllCharacters();
         
@@ -37,7 +39,7 @@ public class CharacterController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<CharacterDetailsDTO> getCharacterById(@PathVariable Long id) throws Exception {
+    public ResponseEntity<CharacterDetailsDTO> getCharacterById(@PathVariable Long id){
         
         CharacterDetailsDTO character = characterService.getCharacterById(id);
         
@@ -45,7 +47,7 @@ public class CharacterController {
     }
     
     @PostMapping
-    public ResponseEntity<CharacterFullDTO> postCharacter(@RequestBody CharacterDetailsDTO newCharacter) throws Exception {
+    public ResponseEntity<CharacterFullDTO> postCharacter(@Valid @RequestBody CharacterDetailsDTO newCharacter) {
         
         CharacterFullDTO characterSaved = characterService.saveCharacter(newCharacter);
         
@@ -53,7 +55,7 @@ public class CharacterController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<CharacterFullDTO> updateCharacter(@PathVariable Long id, @RequestBody CharacterFullDTO characterWithChanges) throws Exception {
+    public ResponseEntity<CharacterFullDTO> updateCharacter(@Valid @PathVariable Long id, @RequestBody CharacterFullDTO characterWithChanges){
         
         CharacterDetailsDTO characterToUpdate = characterService.getCharacterById(id);
         
@@ -67,7 +69,7 @@ public class CharacterController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteCharacter(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Boolean> deleteCharacter(@PathVariable Long id){
         
         Boolean isDeleted = characterService.deleteCharacter(id);
         

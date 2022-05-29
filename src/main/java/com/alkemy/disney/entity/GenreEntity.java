@@ -17,9 +17,10 @@ public class GenreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull @NotBlank
+    @Column(unique = true)
     private String name;
     private String image;
+
 // Comentado hasta que le demos un uso - evita recursividad
 //    @OneToMany(mappedBy = "genre")
 //    private List<MovieEntity> movies;
