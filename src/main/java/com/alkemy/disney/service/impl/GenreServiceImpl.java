@@ -29,22 +29,22 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreDTO putGenre(Long genreId, GenreDTO newDto) {
-        Optional<GenreEntity> genreEntity = genreRepository.findById(genreId);
-        genreMapper.genreEntityDataUpdate(genreEntity.get(), newDto);
-        GenreEntity entitySaved = genreRepository.save(genreEntity.get());
+        GenreEntity genreEntity = genreRepository.getById(genreId);
+        genreMapper.genreEntityDataUpdate(genreEntity, newDto);
+        GenreEntity entitySaved = genreRepository.save(genreEntity);
         return genreMapper.genreEntityToDTO(entitySaved);
     }
 
     @Override
     public void deleteGenre(Long genreId){
-        Optional<GenreEntity> genreEntity = this.genreRepository.findById(genreId);
+        GenreEntity genreEntity = genreRepository.getById(genreId);
         this.genreRepository.deleteById(genreId);
     }
 
     @Override
     public GenreDTO getGenreById(Long genreId){
-        Optional<GenreEntity> genreEntity = genreRepository.findById(genreId);
-        return genreMapper.genreEntityToDTO(genreEntity.get());
+        GenreEntity genreEntity = genreRepository.getById(genreId);
+        return genreMapper.genreEntityToDTO(genreEntity);
     }
 
     @Override
