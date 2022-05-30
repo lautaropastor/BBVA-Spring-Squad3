@@ -12,21 +12,24 @@ public class ApiError {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm")
     private LocalDateTime timestamp;
     private HttpStatus status;
+    private String path;
     private String message;
     private List<String> errors;
 
-    public ApiError(LocalDateTime timestamp,HttpStatus status, String message,List<String> errors) {
+    public ApiError(LocalDateTime timestamp,HttpStatus status, String path, String message,List<String> errors) {
         super();
         this.timestamp = timestamp;
         this.status = status;
+        this.path = path;
         this.message = message;
         this.errors = errors;
     }
 
-    public ApiError(LocalDateTime timestamp,HttpStatus status, String message, String error) {
+    public ApiError(LocalDateTime timestamp,HttpStatus status,String path, String message, String error) {
         super();
         this.timestamp = timestamp;
         this.status = status;
+        this.path = path;
         this.message = message;
         errors = Arrays.asList(error);
     }
