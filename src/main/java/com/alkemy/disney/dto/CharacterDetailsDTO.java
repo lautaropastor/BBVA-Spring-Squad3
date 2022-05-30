@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Getter @Setter
 public class CharacterDetailsDTO implements Serializable {
@@ -18,9 +19,9 @@ public class CharacterDetailsDTO implements Serializable {
     private String name;
     @NotEmpty(message = "must be completed")
     private String history;
-    @NotNull(message = "must be completed")
+    @NotNull(message = "must be completed") @Positive(message = "Age cannot be negative")
     private Integer age;
-    @NotNull(message = "must be completed")
+    @NotNull(message = "must be completed") @Positive(message = "Wieght must be positive")
     private Double weight;
     private Set<MovieEntity> movies = new HashSet<>();
 }
