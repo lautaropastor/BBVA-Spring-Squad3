@@ -75,8 +75,20 @@ public final class MovieMapper {
         movieFullDTO.setRealasedDate(movieEntity.getRealasedDate());
         movieFullDTO.setCalification(movieEntity.getCalification());
         movieFullDTO.setGenre(movieEntity.getGenre());
-        movieFullDTO.setCharacters(movieEntity.getCharacters());
-
+        Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
+        movieEntity.getCharacters().forEach(character -> {
+            CharacterWithoutMoviesDTO characterWithoutMoviesDTO = new CharacterWithoutMoviesDTO();
+            characterWithoutMoviesDTO.setId(character.getId());
+            characterWithoutMoviesDTO.setImage(character.getImage());
+            characterWithoutMoviesDTO.setName(character.getName());
+            characterWithoutMoviesDTO.setWeight(character.getWeight());
+            characterWithoutMoviesDTO.setHistory(character.getHistory());
+            characterWithoutMoviesDTO.setAge(character.getAge());
+            
+            characters.add(characterWithoutMoviesDTO);
+   
+        });
+        movieFullDTO.setCharacters(characters);
         return movieFullDTO;
 
     }
