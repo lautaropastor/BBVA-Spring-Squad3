@@ -3,6 +3,7 @@ package com.alkemy.disney.service.impl;
 import com.alkemy.disney.dto.*;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
+import com.alkemy.disney.exception.EntityNotFound;
 import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.mapper.MovieMapper;
 import com.alkemy.disney.repository.specifications.CharacterRepository;
@@ -85,5 +86,17 @@ public class MovieServiceImpl implements IMovieService {
             }
         }
         return characters;
+    }
+
+    @Override
+    public boolean removeCharacterInMovie(Long idMovie, Long idCharacter) {
+        MovieEntity movie = movieRepository.getById(idMovie);
+        if(!characterRepository.existsById(idCharacter)) {
+            throw new EntityNotFound(CharacterEntity.class, "not found");
+        }
+        CharacterEntity characterToRemove = characterRepository.getById(idCharacter);
+        movie.removeCharacter(characterToRemove);
+        movieRepository.save(movie);
+        return true;
     }
 }
