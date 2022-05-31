@@ -1,6 +1,8 @@
 package com.alkemy.disney.controller;
 
 import com.alkemy.disney.dto.MovieDTO;
+import com.alkemy.disney.dto.MovieDetailsDTO;
+import com.alkemy.disney.dto.MovieFullDTO;
 import com.alkemy.disney.dto.MovieWithoutCharactersDTO;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.service.IMovieService;
@@ -25,7 +27,7 @@ public class MovieController {
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<MovieDTO> getMovieById (@PathVariable Long id) {
+    public ResponseEntity<MovieFullDTO> getMovieById (@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.getMovieById(id));
     }
 
@@ -36,12 +38,12 @@ public class MovieController {
     }
 
     @PostMapping()
-    public ResponseEntity<MovieDTO> postMovie (@RequestBody MovieDTO movie) {
+    public ResponseEntity<MovieFullDTO> postMovie (@RequestBody MovieDetailsDTO movie) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postMovie(movie));
     }
 
     @PutMapping(path = "{id}")
-    public ResponseEntity<MovieDTO> putMovie (@PathVariable Long id,@RequestBody MovieWithoutCharactersDTO movie) {
+    public ResponseEntity<MovieFullDTO> putMovie (@PathVariable Long id,@RequestBody MovieWithoutCharactersDTO movie) {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.putMovie(id, movie));
     }
 }
