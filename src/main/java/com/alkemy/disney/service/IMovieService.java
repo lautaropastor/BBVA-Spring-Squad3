@@ -1,6 +1,7 @@
 package com.alkemy.disney.service;
 
 import com.alkemy.disney.dto.*;
+import com.alkemy.disney.exception.EntityAlreadyExists;
 
 import java.util.List;
 import java.util.Set;
