@@ -44,7 +44,7 @@ public class MovieController {
     }
 
     @PutMapping(path = "{id}")
-    public ResponseEntity<MovieFullDTO> putMovie (@PathVariable Long id,@RequestBody MovieWithoutCharactersDTO movie) {
+    public ResponseEntity<MovieFullDTO> putMovie (@PathVariable Long id, @Valid @RequestBody MovieWithoutCharactersDTO movie) {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.putMovie(id, movie));
     }
 }
