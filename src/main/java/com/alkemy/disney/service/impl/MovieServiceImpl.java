@@ -68,8 +68,8 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieCharacterWithoutMoviesDTO postCharacterInMovie (Long idMovie, Long idCharacter) {
-            MovieEntity movie = movieRepository.findById(idMovie).orElseThrow();
-            CharacterEntity character = characterRepository.findById(idCharacter).orElseThrow();
+            MovieEntity movie = movieRepository.getById(idMovie);
+            CharacterEntity character = characterRepository.getById(idCharacter);
             MovieMapper.addCharacterInMovie(movie, character);
             movieRepository.save(movie);
         return MovieMapper.toMovieCharacterWithoutMoviesDTO(movie);
