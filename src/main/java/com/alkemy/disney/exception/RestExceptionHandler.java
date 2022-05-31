@@ -60,8 +60,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     protected ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex, WebRequest request) {
-        Throwable cause = ex.getRootCause();
-        ApiError err = new ApiError ( LocalDateTime.now(),HttpStatus.CONFLICT, request.getDescription(true), Error.DATA_INTEGRITY.getMessage(), cause.getMessage() );
+        String cause = ex.getMostSpecificCause().getMessage();
+        ApiError err = new ApiError ( LocalDateTime.now(),HttpStatus.CONFLICT, request.getDescription(true), Error.DATA_INTEGRITY.getMessage(), cause );
         return new ResponseEntity(err, err.getStatus());
     }
 
