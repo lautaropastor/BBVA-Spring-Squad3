@@ -1,9 +1,6 @@
 package com.alkemy.disney.controller;
 
-import com.alkemy.disney.dto.MovieDTO;
-import com.alkemy.disney.dto.MovieDetailsDTO;
-import com.alkemy.disney.dto.MovieFullDTO;
-import com.alkemy.disney.dto.MovieWithoutCharactersDTO;
+import com.alkemy.disney.dto.*;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/disney/api/movies")
@@ -38,12 +36,17 @@ public class MovieController {
     }
 
     @PostMapping()
-    public ResponseEntity<MovieFullDTO> postMovie (@RequestBody MovieDetailsDTO movie) {
+    public ResponseEntity<MovieCharacterWithoutMoviesDTO> postMovie (@Valid @RequestBody MovieDetailsDTO movie) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postMovie(movie));
     }
 
     @PutMapping(path = "{id}")
     public ResponseEntity<MovieFullDTO> putMovie (@PathVariable Long id,@RequestBody MovieWithoutCharactersDTO movie) {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.putMovie(id, movie));
+    }
+
+    @PostMapping(path = "/{idMovie}/characters/{idCharacter}")
+    public ResponseEntity<MovieCharacterWithoutMoviesDTO> postCharacterInMovie (@PathVariable Long idMovie, @PathVariable Long idCharacter) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postCharacterInMovie(idMovie, idCharacter));
     }
 }
