@@ -55,7 +55,7 @@ public class CharacterController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<CharacterFullDTO> updateCharacter(@Valid @PathVariable Long id, @RequestBody CharacterFullDTO characterWithChanges){
+    public ResponseEntity<CharacterFullDTO> updateCharacter(@PathVariable Long id, @Valid @RequestBody CharacterFullDTO characterWithChanges){
         
         CharacterDetailsDTO characterToUpdate = characterService.getCharacterById(id);
         
