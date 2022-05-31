@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/disney/api/movies")
@@ -38,7 +39,7 @@ public class MovieController {
     }
 
     @PostMapping()
-    public ResponseEntity<MovieFullDTO> postMovie (@RequestBody MovieDetailsDTO movie) {
+    public ResponseEntity<MovieFullDTO> postMovie (@Valid @RequestBody MovieDetailsDTO movie) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postMovie(movie));
     }
 
