@@ -7,12 +7,15 @@ import java.util.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table (name = "movies")
 @Getter @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties(value = "characters") // TEMPORAL hasta encontrar solución efectiva a petición recursiva.
+@SQLDelete(sql = "UPDATE movies SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +28,8 @@ public class MovieEntity {
     private Date realasedDate;
     @Column (nullable = false)
     private Integer calification;
+    @Column
+    private boolean deleted;
 
     @ManyToOne()
     @JoinColumn(name = "genre_id", nullable = false)
