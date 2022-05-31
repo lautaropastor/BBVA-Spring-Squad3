@@ -92,7 +92,7 @@ public class MovieServiceImpl implements IMovieService {
     public boolean removeCharacterInMovie(Long idMovie, Long idCharacter) {
         MovieEntity movie = movieRepository.getById(idMovie);
         if(!characterRepository.existsById(idCharacter)) {
-            throw new EntityNotFound(CharacterEntity.class, "not found");
+            throw new EntityNotFound(CharacterEntity.class);
         }
         CharacterEntity characterToRemove = characterRepository.getById(idCharacter);
         movie.removeCharacter(characterToRemove);
