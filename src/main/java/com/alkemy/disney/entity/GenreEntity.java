@@ -21,6 +21,8 @@ public class GenreEntity {
     private String name;
     private String image;
 
+    private boolean deleted = false;
+
 // Comentado hasta que le demos un uso - evita recursividad
 //    @OneToMany(mappedBy = "genre")
 //    private List<MovieEntity> movies;

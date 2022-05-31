@@ -2,6 +2,8 @@ package com.alkemy.disney.mapper;
 
 import com.alkemy.disney.dto.GenreDTO;
 import com.alkemy.disney.entity.GenreEntity;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,6 +11,9 @@ import java.util.List;
 
 @Component
 public class GenreMapper {
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public GenreEntity genreDTOToEntity(GenreDTO genreDto){
         GenreEntity genreEntity = new GenreEntity();
@@ -34,7 +39,7 @@ public class GenreMapper {
         List<GenreDTO> genreDtoList = new ArrayList<>();
 
         for (GenreEntity entity: genreEntityList) {
-            genreDtoList.add(this.genreEntityToDTO(entity));
+            genreDtoList.add(modelMapper.map(entity, GenreDTO.class));
         }
         return genreDtoList;
     }
