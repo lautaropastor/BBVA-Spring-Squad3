@@ -3,6 +3,7 @@ package com.alkemy.disney.service.impl;
 import com.alkemy.disney.dto.*;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
+import com.alkemy.disney.exception.EntityAlreadyExists;
 import com.alkemy.disney.exception.EntityNotFound;
 import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.mapper.MovieMapper;
@@ -68,10 +69,13 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieCharacterWithoutMoviesDTO postCharacterInMovie (Long idMovie, Long idCharacter) {
-            MovieEntity movie = movieRepository.getById(idMovie);
-            CharacterEntity character = characterRepository.getById(idCharacter);
-            MovieMapper.addCharacterInMovie(movie, character);
-            movieRepository.save(movie);
+        MovieEntity movie = movieRepository.getById(idMovie);
+        CharacterEntity character = characterRepository.getById(idCharacter);
+        if(movie.getCharacters().contains(character)) {
+            throw new EntityAlreadyExists(CharacterEntity.class ,idCharacter + " was already added to the movie");
+        }
+        movie.addCharacter(character);
+        movieRepository.save(movie);
         return MovieMapper.toMovieCharacterWithoutMoviesDTO(movie);
     }
 

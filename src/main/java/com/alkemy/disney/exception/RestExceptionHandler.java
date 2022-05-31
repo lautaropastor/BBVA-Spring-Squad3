@@ -26,6 +26,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 
+    @ExceptionHandler({ EntityAlreadyExists.class })
+    public ResponseEntity<Object> entityAlreadyExists (EntityAlreadyExists ex, WebRequest request) {
+        ApiError apiError = new ApiError(LocalDateTime.now(), HttpStatus.CONFLICT, request.getDescription(true), ex.getMessage(), ex.getLocalizedMessage());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request) {
         String error = ex.getName() + " should be of type " + ex.getRequiredType().getSimpleName();
@@ -62,5 +68,4 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError err = new ApiError ( LocalDateTime.now(),HttpStatus.CONFLICT, request.getDescription(true), Error.DATA_INTEGRITY.getMessage(), cause );
         return new ResponseEntity(err, err.getStatus());
     }
-
 }
