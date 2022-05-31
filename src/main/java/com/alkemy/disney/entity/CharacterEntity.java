@@ -59,5 +59,17 @@ public class CharacterEntity implements Serializable {
     public void addMovie(MovieEntity newMovie) {   
         movies.add(newMovie);
     }
-    
+
+    @Override
+    public String toString() {
+        return "CharacterEntity{" +
+                "id=" + id +
+                ", image='" + image + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", history='" + history + '\'' +
+                ", deleted=" + deleted;
+
+    }
 }

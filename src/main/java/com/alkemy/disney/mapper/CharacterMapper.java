@@ -134,4 +134,12 @@ public class CharacterMapper {
         }
         return dtoList;
     }
+
+    public static Set<CharacterWithoutMoviesDTO> toListCharacterWitouhMoviesDto (Set<CharacterEntity> list) {
+        Set<CharacterWithoutMoviesDTO> listCharacterWitouhtMovies = new HashSet<>();
+        for (CharacterEntity character : list) {
+            listCharacterWitouhtMovies.add(toWithoutMoviesDTO(character));
+        }
+        return listCharacterWitouhtMovies;
+    }
 }
