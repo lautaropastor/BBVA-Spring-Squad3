@@ -59,13 +59,8 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieFullDTO putMovie (Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO) {
-        MovieEntity movieEntity = movieRepository.findById(id).orElseThrow();
-        // TODO: A revisar try catch
-        try {
-            MovieMapper.movieEntityDataUpdate(movieWithoutCharactersDTO, movieEntity);
-        } catch (Exception ex) {
-            Logger.getLogger(MovieServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        MovieEntity movieEntity = movieRepository.getById(id);
+        MovieMapper.movieEntityDataUpdate(movieWithoutCharactersDTO, movieEntity);
         MovieEntity movieSaved = movieRepository.save(movieEntity);
         return MovieMapper.toFullDTO(movieSaved);
     }

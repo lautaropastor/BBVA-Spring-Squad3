@@ -20,10 +20,16 @@ import java.util.List;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler({ Throwable.class })
+    public ResponseEntity<Object> handleAll(Throwable ex,WebRequest request) {
+        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.INTERNAL_SERVER_ERROR, request.getDescription(true),Error.GENERAL.getMessage(),  ex.getLocalizedMessage());
+        return new ResponseEntity(apiError, apiError.getStatus());
+    }
+
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request) {
         String error = ex.getName() + " should be of type " + ex.getRequiredType().getSimpleName();
-        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.BAD_REQUEST, request.getDescription(false),ex.getLocalizedMessage(), error);
+        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.BAD_REQUEST, request.getDescription(true),ex.getLocalizedMessage(), error);
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 
@@ -32,21 +38,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> errors = new ArrayList<>();
         errors.add(ex.getMethod()+ " Method is not supported for this request. Supported Methods are: ");
         ex.getSupportedHttpMethods().forEach(t -> errors.add(t.toString()));
-        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.METHOD_NOT_ALLOWED, request.getDescription(false),ex.getLocalizedMessage(), errors);
+        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.METHOD_NOT_ALLOWED, request.getDescription(true),ex.getLocalizedMessage(), errors);
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> handleAll(Exception ex,WebRequest request) {
-        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.NOT_FOUND, request.getDescription(false),Error.GENERAL.getMessage(),  ex.getLocalizedMessage());
-        return new ResponseEntity(apiError, apiError.getStatus());
-    }
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         List<String> errors = new ArrayList<>();
-        fieldErrors.forEach(error -> errors.add(error.getField() + " " + error.getDefaultMessage()));
+        fieldErrors.forEach(error -> errors.add("field " + error.getField() + " " + error.getDefaultMessage()));
         ApiError err = new ApiError(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST,
@@ -58,8 +60,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     protected ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex, WebRequest request) {
-        Throwable cause = ex.getRootCause();
-        ApiError err = new ApiError ( LocalDateTime.now(),HttpStatus.CONFLICT, request.getDescription(true), Error.DATA_INTEGRITY.getMessage(), cause.getMessage() );
+        String cause = ex.getMostSpecificCause().getMessage();
+        ApiError err = new ApiError ( LocalDateTime.now(),HttpStatus.CONFLICT, request.getDescription(true), Error.DATA_INTEGRITY.getMessage(), cause );
         return new ResponseEntity(err, err.getStatus());
     }
 

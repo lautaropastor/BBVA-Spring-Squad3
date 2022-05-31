@@ -81,12 +81,7 @@ public final class MovieMapper {
 
     }
 
-    public static void movieEntityDataUpdate(MovieWithoutCharactersDTO movieWithoutCharactersDTO, MovieEntity movieEntity) throws Exception {
-
-        if(movieWithoutCharactersDTO.getId() != movieEntity.getId()) {
-            // TODO: A revisar.
-            throw new Exception("Error, las entidades son distintas.");
-        }
+    public static void movieEntityDataUpdate(MovieWithoutCharactersDTO movieWithoutCharactersDTO, MovieEntity movieEntity){
 
         movieEntity.setTitle(movieWithoutCharactersDTO.getTitle());
         movieEntity.setImage(movieWithoutCharactersDTO.getImage());
