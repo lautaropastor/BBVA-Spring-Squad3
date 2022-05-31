@@ -52,6 +52,10 @@ public class MovieEntity {
     public void addCharacter (CharacterEntity character) {
         characters.add(character);
     }
+    
+    public void removeCharacter (CharacterEntity character) {
+        characters.remove(character);
+    }
 
     @Override
     public String toString() {
