@@ -62,4 +62,9 @@ public class MovieServiceImpl implements IMovieService {
         MovieEntity movieSaved = movieRepository.save(movieEntity);
         return MovieMapper.toFullDTO(movieSaved);
     }
+
+    @Override
+    public MovieFullDTO postCharacterInMovie (Long idMovie, Long idCharacter) {
+        return null;
+    }
 }

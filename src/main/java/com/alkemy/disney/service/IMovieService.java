@@ -15,4 +15,5 @@ public interface IMovieService {
     void deleteMovieById(Long id);
     MovieFullDTO postMovie(MovieDetailsDTO movie);
     MovieFullDTO putMovie(Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO);
+    MovieFullDTO postCharacterInMovie(Long idMovie, Long idCharacter);
 }
