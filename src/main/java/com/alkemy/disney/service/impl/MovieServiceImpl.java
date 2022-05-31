@@ -49,12 +49,12 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
-    public MovieFullDTO postMovie (MovieDetailsDTO movieDTO) {
+    public MovieCharacterWithoutMoviesDTO postMovie (MovieDetailsDTO movieDTO) {
         Set<CharacterEntity> characters = getListWithExistsEntities(movieDTO.getCharacters());
         movieDTO.setCharacters(characters);
         MovieEntity movie = MovieMapper.toEntity(movieDTO);
         MovieEntity movieSaved = movieRepository.save(movie);
-        return MovieMapper.toFullDTO(movieSaved);
+        return MovieMapper.toMovieCharacterWithoutMoviesDTO(movieSaved);
     }
 
     @Override

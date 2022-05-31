@@ -35,7 +35,7 @@ public class MovieController {
     }
 
     @PostMapping()
-    public ResponseEntity<MovieFullDTO> postMovie (@RequestBody MovieDetailsDTO movie) {
+    public ResponseEntity<MovieCharacterWithoutMoviesDTO> postMovie (@RequestBody MovieDetailsDTO movie) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postMovie(movie));
     }
 
