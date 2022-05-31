@@ -7,11 +7,15 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name="characters")
 @Getter @Setter
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE characters SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class CharacterEntity implements Serializable {
 
     @Id
@@ -33,6 +37,9 @@ public class CharacterEntity implements Serializable {
     
     @Column
     private String history;
+    
+    @Column
+    private boolean deleted;
 
     @ManyToMany(mappedBy = "characters", fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
