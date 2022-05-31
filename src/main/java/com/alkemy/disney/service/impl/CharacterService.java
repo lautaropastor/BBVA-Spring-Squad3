@@ -59,7 +59,7 @@ public class CharacterService implements ICharacterService{
         if(!characterRepository.existsById(id)) {
             return false;
         }
-        characterRepository.removeParticipationsCharacter(id);
+        //characterRepository.removeParticipationsCharacter(id); línea para borrado físico
         characterRepository.deleteById(id);
         return true;
     }

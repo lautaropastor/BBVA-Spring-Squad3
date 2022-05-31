@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CharacterRepository extends JpaRepository<CharacterEntity, Long>{
     
+    // Query para borrado físico
     @Query(nativeQuery = true, value = "DELETE FROM disney.movies_characters WHERE character_id = :id")
     @Modifying
     public void removeParticipationsCharacter(@Param("id") Long id);
