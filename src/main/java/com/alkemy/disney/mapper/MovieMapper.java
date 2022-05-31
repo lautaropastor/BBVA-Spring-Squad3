@@ -1,11 +1,10 @@
 package com.alkemy.disney.mapper;
 
-import com.alkemy.disney.dto.MovieDTO;
-import com.alkemy.disney.dto.MovieDetailsDTO;
-import com.alkemy.disney.dto.MovieFullDTO;
-import com.alkemy.disney.dto.MovieWithoutCharactersDTO;
+import com.alkemy.disney.dto.*;
+import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -118,5 +117,21 @@ public final class MovieMapper {
         return moviesDTO;
     }
     
-    
+    public static void addCharacterInMovie(MovieEntity movie, CharacterEntity character) {
+        Set<CharacterEntity> charactersInMovie = movie.getCharacters();
+        charactersInMovie.add(character);
+    }
+
+    public static MovieCharacterWithoutMoviesDTO toMovieCharacterWithoutMoviesDTO(MovieEntity movie) {
+        MovieCharacterWithoutMoviesDTO movieCharacterWithoutMoviesDTO = new MovieCharacterWithoutMoviesDTO();
+        movieCharacterWithoutMoviesDTO.setId(movie.getId());
+        movieCharacterWithoutMoviesDTO.setTitle(movie.getTitle());
+        movieCharacterWithoutMoviesDTO.setImage(movie.getImage());
+        movieCharacterWithoutMoviesDTO.setRealasedDate(movie.getRealasedDate());
+        movieCharacterWithoutMoviesDTO.setCalification(movie.getCalification());
+        movieCharacterWithoutMoviesDTO.setGenre(movie.getGenre());
+        movieCharacterWithoutMoviesDTO.setCharactersWithoutMovies(CharacterMapper.toListCharacterWitouhMoviesDto(movie.getCharacters()));
+
+        return movieCharacterWithoutMoviesDTO;
+    }
 }

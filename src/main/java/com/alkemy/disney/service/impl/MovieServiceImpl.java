@@ -1,17 +1,17 @@
 package com.alkemy.disney.service.impl;
 
-import com.alkemy.disney.dto.MovieDTO;
-import com.alkemy.disney.dto.MovieDetailsDTO;
-import com.alkemy.disney.dto.MovieFullDTO;
-import com.alkemy.disney.dto.MovieWithoutCharactersDTO;
+import com.alkemy.disney.dto.*;
+import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.mapper.MovieMapper;
+import com.alkemy.disney.repository.specifications.CharacterRepository;
 import com.alkemy.disney.repository.specifications.MovieRepository;
 import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +21,9 @@ public class MovieServiceImpl implements IMovieService {
 
     @Autowired
     private MovieRepository movieRepository;
+
+    @Autowired
+    private CharacterRepository characterRepository;
 
     @Override
     public Set<MovieDTO> getMovies() {
@@ -64,7 +67,11 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
-    public MovieFullDTO postCharacterInMovie (Long idMovie, Long idCharacter) {
-        return null;
+    public MovieCharacterWithoutMoviesDTO postCharacterInMovie (Long idMovie, Long idCharacter) {
+            MovieEntity movie = movieRepository.findById(idMovie).orElseThrow();
+            CharacterEntity character = characterRepository.findById(idCharacter).orElseThrow();
+            MovieMapper.addCharacterInMovie(movie, character);
+            movieRepository.save(movie);
+        return MovieMapper.toMovieCharacterWithoutMoviesDTO(movie);
     }
 }
