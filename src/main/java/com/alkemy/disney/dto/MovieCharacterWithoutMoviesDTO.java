@@ -18,5 +18,5 @@ public class MovieCharacterWithoutMoviesDTO {
     private Date realasedDate;
     private Integer calification;
     private GenreEntity genre;
-    private Set<CharacterWithoutMoviesDTO> charactersWithoutMovies = new HashSet<>();
+    private Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
 }

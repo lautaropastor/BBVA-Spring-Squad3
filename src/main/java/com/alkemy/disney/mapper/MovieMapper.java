@@ -137,7 +137,7 @@ public final class MovieMapper {
         movieCharacterWithoutMoviesDTO.setRealasedDate(movie.getRealasedDate());
         movieCharacterWithoutMoviesDTO.setCalification(movie.getCalification());
         movieCharacterWithoutMoviesDTO.setGenre(movie.getGenre());
-        movieCharacterWithoutMoviesDTO.setCharactersWithoutMovies(CharacterMapper.toListCharacterWitouhMoviesDto(movie.getCharacters()));
+        movieCharacterWithoutMoviesDTO.setCharacters(CharacterMapper.toListCharacterWitouhMoviesDto(movie.getCharacters()));
 
         return movieCharacterWithoutMoviesDTO;
     }
