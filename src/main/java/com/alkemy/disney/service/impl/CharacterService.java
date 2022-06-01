@@ -38,7 +38,7 @@ public class CharacterService implements ICharacterService{
     @Override
     @Transactional
     public CharacterFullDTO saveCharacter(CharacterDetailsDTO newCharacter){
-        CharacterEntity characterEntity = CharacterMapper.DetailsDTOtoEntity(newCharacter);
+        CharacterEntity characterEntity = CharacterMapper.detailsDTOtoEntity(newCharacter);
         CharacterEntity characterEntitySaved = characterRepository.save(characterEntity);
         CharacterFullDTO characterFullDTO = CharacterMapper.toFullDTO(characterEntitySaved);
         return characterFullDTO;
@@ -47,7 +47,7 @@ public class CharacterService implements ICharacterService{
     @Override
     @Transactional
     public CharacterFullDTO totalUpdateCharacter(CharacterFullDTO characterWithChanges){
-        CharacterEntity characterEntity = CharacterMapper.FullDTOtoEntity(characterWithChanges);
+        CharacterEntity characterEntity = CharacterMapper.fullDTOtoEntity(characterWithChanges);
         CharacterEntity updatedCharacter = characterRepository.save(characterEntity);
         CharacterFullDTO characterFullDTO = CharacterMapper.toFullDTO(updatedCharacter);
         return characterFullDTO;       
