@@ -55,10 +55,7 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieFullDTO putMovie (Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO) {
-        if(!movieRepository.existsById(id)) {
-            throw new EntityNotFound(MovieEntity.class);
-        }
-        MovieEntity movieEntity = movieRepository.getById(id);
+        MovieEntity movieEntity = movieRepository.findById(id).orElseThrow(() -> new EntityNotFound(MovieEntity.class));
         MovieMapper.movieEntityDataUpdate(movieWithoutCharactersDTO, movieEntity);
         MovieEntity movieSaved = movieRepository.save(movieEntity);
         return MovieMapper.toFullDTO(movieSaved);

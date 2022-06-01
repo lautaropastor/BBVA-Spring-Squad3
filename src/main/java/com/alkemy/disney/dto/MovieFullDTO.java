@@ -16,5 +16,5 @@ public final class MovieFullDTO {
     private Date realasedDate;
     private Integer calification;
     private GenreEntity genre; 
-    private Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();    
+    private Set<CharacterEntity> characters = new HashSet<>();    
 }

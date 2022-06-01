@@ -4,7 +4,6 @@ import com.alkemy.disney.dto.*;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 
@@ -75,22 +74,22 @@ public final class MovieMapper {
         movieFullDTO.setRealasedDate(movieEntity.getRealasedDate());
         movieFullDTO.setCalification(movieEntity.getCalification());
         movieFullDTO.setGenre(movieEntity.getGenre());
-        Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
-        movieEntity.getCharacters().forEach(character -> {
-            CharacterWithoutMoviesDTO characterWithoutMoviesDTO = new CharacterWithoutMoviesDTO();
-            characterWithoutMoviesDTO.setId(character.getId());
-            characterWithoutMoviesDTO.setImage(character.getImage());
-            characterWithoutMoviesDTO.setName(character.getName());
-            characterWithoutMoviesDTO.setWeight(character.getWeight());
-            characterWithoutMoviesDTO.setHistory(character.getHistory());
-            characterWithoutMoviesDTO.setAge(character.getAge());
-            
-            characters.add(characterWithoutMoviesDTO);
-   
-        });
-        movieFullDTO.setCharacters(characters);
+        movieFullDTO.setCharacters(movieEntity.getCharacters());      
+//        Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
+//        movieEntity.getCharacters().forEach(character -> {
+//            CharacterWithoutMoviesDTO characterWithoutMoviesDTO = new CharacterWithoutMoviesDTO();
+//            characterWithoutMoviesDTO.setId(character.getId());
+//            characterWithoutMoviesDTO.setImage(character.getImage());
+//            characterWithoutMoviesDTO.setName(character.getName());
+//            characterWithoutMoviesDTO.setWeight(character.getWeight());
+//            characterWithoutMoviesDTO.setHistory(character.getHistory());
+//            characterWithoutMoviesDTO.setAge(character.getAge());
+//            
+//            characters.add(characterWithoutMoviesDTO);
+//   
+//        });
+//        movieFullDTO.setCharacters(characters);    
         return movieFullDTO;
-
     }
 
     public static void movieEntityDataUpdate(MovieWithoutCharactersDTO movieWithoutCharactersDTO, MovieEntity movieEntity){
