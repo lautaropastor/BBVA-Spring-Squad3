@@ -5,7 +5,6 @@ import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.exception.EntityAlreadyExists;
 import com.alkemy.disney.exception.EntityNotFound;
-import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.mapper.MovieMapper;
 import com.alkemy.disney.repository.specifications.CharacterRepository;
 import com.alkemy.disney.repository.specifications.MovieRepository;
@@ -13,12 +12,7 @@ import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Service
 public class MovieServiceImpl implements IMovieService {
@@ -37,7 +31,7 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieFullDTO getMovieById(Long id) {
-        MovieEntity movie = movieRepository.findById(id).orElseThrow();
+        MovieEntity movie = movieRepository.findById(id).orElseThrow(() -> new EntityNotFound(MovieEntity.class));
         return MovieMapper.toFullDTO(movie);
     }
 
@@ -45,7 +39,7 @@ public class MovieServiceImpl implements IMovieService {
     public void deleteMovieById (Long id) {
         boolean exist = movieRepository.existsById(id);
         if(!exist) {
-            throw new NullPointerException();
+            throw new EntityNotFound(MovieEntity.class);
         }
         movieRepository.deleteById(id);
     }
@@ -61,6 +55,9 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieFullDTO putMovie (Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO) {
+        if(!movieRepository.existsById(id)) {
+            throw new EntityNotFound(MovieEntity.class);
+        }
         MovieEntity movieEntity = movieRepository.getById(id);
         MovieMapper.movieEntityDataUpdate(movieWithoutCharactersDTO, movieEntity);
         MovieEntity movieSaved = movieRepository.save(movieEntity);
@@ -69,11 +66,15 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieCharacterWithoutMoviesDTO postCharacterInMovie (Long idMovie, Long idCharacter) {
+        if(!movieRepository.existsById(idMovie)) throw new EntityNotFound(MovieEntity.class);
+        
+        if(!characterRepository.existsById(idCharacter)) throw new EntityNotFound(CharacterEntity.class);
+       
         MovieEntity movie = movieRepository.getById(idMovie);
         CharacterEntity character = characterRepository.getById(idCharacter);
-        if(movie.getCharacters().contains(character)) {
-            throw new EntityAlreadyExists(CharacterEntity.class ,idCharacter + " was already added to the movie");
-        }
+        
+        if(movie.getCharacters().contains(character)) throw new EntityAlreadyExists(CharacterEntity.class ,idCharacter + " was already added to the movie");
+      
         movie.addCharacter(character);
         movieRepository.save(movie);
         return MovieMapper.toMovieCharacterWithoutMoviesDTO(movie);
