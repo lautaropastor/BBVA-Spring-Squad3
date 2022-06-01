@@ -66,7 +66,7 @@ public class MovieServiceImpl implements IMovieService {
     public MovieDetailsDTO putMovie (Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO) {
         MovieEntity movieEntity = movieRepository.findById(id).orElseThrow(() -> new EntityNotFound(MovieEntity.class));
         MovieMapper.movieEntityDataUpdate(movieWithoutCharactersDTO, movieEntity);
-        GenreEntity genreEntity = genreRepository.getById(movieWithoutCharactersDTO.getGenre().getId());
+        GenreEntity genreEntity = genreRepository.findById(movieWithoutCharactersDTO.getGenre().getId()).orElseThrow(() -> new EntityNotFound(GenreEntity.class));
         movieEntity.setGenre(genreEntity);
         MovieEntity movieSaved = movieRepository.save(movieEntity);
         return MovieMapper.toDetailsDTO(movieSaved);
