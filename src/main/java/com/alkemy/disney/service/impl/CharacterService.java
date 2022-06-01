@@ -4,6 +4,7 @@ import com.alkemy.disney.dto.CharacterDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterFullDTO;
 import com.alkemy.disney.entity.CharacterEntity;
+import com.alkemy.disney.exception.EntityNotFound;
 import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.repository.specifications.CharacterRepository;
 import com.alkemy.disney.service.ICharacterService;
@@ -30,7 +31,7 @@ public class CharacterService implements ICharacterService{
     @Override
     @Transactional
     public CharacterDetailsDTO getCharacterById(Long id){
-        CharacterEntity characterEntity = characterRepository.getById(id);
+        CharacterEntity characterEntity = characterRepository.findById(id).orElseThrow(() -> new EntityNotFound(CharacterEntity.class));
         CharacterDetailsDTO characterDetails = CharacterMapper.toDetailsDTO(characterEntity);
         return characterDetails;
     }
@@ -57,7 +58,7 @@ public class CharacterService implements ICharacterService{
     @Transactional
     public boolean deleteCharacter(Long id){
         if(!characterRepository.existsById(id)) {
-            return false;
+            throw new EntityNotFound(CharacterEntity.class);
         }
         //characterRepository.removeParticipationsCharacter(id); línea para borrado físico
         characterRepository.deleteById(id);
