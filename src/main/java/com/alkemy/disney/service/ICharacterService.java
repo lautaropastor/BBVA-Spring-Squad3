@@ -3,11 +3,11 @@ package com.alkemy.disney.service;
 import com.alkemy.disney.dto.CharacterDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterFullDTO;
-import java.util.Collection;
+import java.util.Set;
 
 
 public interface ICharacterService {
-    public Collection<CharacterDTO> getAllCharacters();
+    public Set<CharacterDTO> getAllCharacters();
     
     public CharacterDetailsDTO getCharacterById(Long id);
     

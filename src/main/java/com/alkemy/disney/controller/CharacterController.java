@@ -5,7 +5,7 @@ import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterFullDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.service.ICharacterService;
-import java.util.Collection;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +29,9 @@ public class CharacterController {
     ICharacterService characterService;
     
     @GetMapping
-    public ResponseEntity<Collection<CharacterDTO>> getAllCharacters(){
+    public ResponseEntity<Set<CharacterDTO>> getAllCharacters(){
        
-        Collection<CharacterDTO> characterList = characterService.getAllCharacters();
+        Set<CharacterDTO> characterList = characterService.getAllCharacters();
         
         HttpStatus statusCode = (characterList.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
         
