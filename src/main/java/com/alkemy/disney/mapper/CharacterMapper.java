@@ -66,7 +66,7 @@ public class CharacterMapper {
         return characterFullDTO;
     }
 
-    public static CharacterEntity DetailsDTOtoEntity (CharacterDetailsDTO characterDetailsDTO) {
+    public static CharacterEntity detailsDTOtoEntity (CharacterDetailsDTO characterDetailsDTO) {
         if (characterDetailsDTO == null) {
             return null;
         }
@@ -82,7 +82,7 @@ public class CharacterMapper {
         return character;
     }
 
-    public static CharacterEntity FullDTOtoEntity (CharacterFullDTO characterFullDTO) {
+    public static CharacterEntity fullDTOtoEntity (CharacterFullDTO characterFullDTO) {
         if (characterFullDTO == null) {
             return null;
         }
