@@ -3,6 +3,7 @@ package com.alkemy.disney.service.impl;
 import com.alkemy.disney.dto.CharacterDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterFullDTO;
+import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.exception.EntityNotFound;
 import com.alkemy.disney.mapper.CharacterMapper;
@@ -47,9 +48,10 @@ public class CharacterService implements ICharacterService{
 
     @Override
     @Transactional
-    public CharacterFullDTO totalUpdateCharacter(CharacterFullDTO characterWithChanges){
-        CharacterEntity characterEntity = CharacterMapper.fullDTOtoEntity(characterWithChanges);
-        CharacterEntity updatedCharacter = characterRepository.save(characterEntity);
+    public CharacterFullDTO totalUpdateCharacter(Long id, CharacterWithoutMoviesDTO characterWithChanges){
+        CharacterEntity characterToUpdate = characterRepository.findById(id).orElseThrow(() -> new EntityNotFound(CharacterEntity.class));
+        CharacterMapper.characterEntityDataUpdate(characterWithChanges, characterToUpdate);
+        CharacterEntity updatedCharacter = characterRepository.save(characterToUpdate);
         CharacterFullDTO characterFullDTO = CharacterMapper.toFullDTO(updatedCharacter);
         return characterFullDTO;       
     }

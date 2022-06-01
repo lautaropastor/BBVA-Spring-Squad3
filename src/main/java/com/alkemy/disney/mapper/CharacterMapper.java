@@ -142,4 +142,12 @@ public class CharacterMapper {
         }
         return listCharacterWitouhtMovies;
     }
+    
+    public static void characterEntityDataUpdate(CharacterWithoutMoviesDTO characterWithoutMoviesDTO, CharacterEntity characterEntity) {
+        characterEntity.setName(characterWithoutMoviesDTO.getName());
+        characterEntity.setImage(characterWithoutMoviesDTO.getImage());
+        characterEntity.setWeight(characterWithoutMoviesDTO.getWeight());
+        characterEntity.setAge(characterWithoutMoviesDTO.getAge());
+        characterEntity.setHistory(characterWithoutMoviesDTO.getHistory());
+    }
 }

@@ -3,6 +3,7 @@ package com.alkemy.disney.controller;
 import com.alkemy.disney.dto.CharacterDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterFullDTO;
+import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.service.ICharacterService;
 import java.util.Set;
@@ -47,17 +48,9 @@ public class CharacterController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<CharacterFullDTO> updateCharacter(@PathVariable Long id, @Valid @RequestBody CharacterFullDTO characterWithChanges){
-        
-        CharacterDetailsDTO characterToUpdate = characterService.getCharacterById(id);
-        
-        characterWithChanges.setId(id);
-        characterWithChanges.setMovies(characterToUpdate.getMovies());
-        
-        CharacterFullDTO characterUpdated = characterService.totalUpdateCharacter(characterWithChanges); 
-        
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(characterUpdated);
-        
+    public ResponseEntity<CharacterFullDTO> updateCharacter(@PathVariable Long id, @Valid @RequestBody CharacterWithoutMoviesDTO characterWithChanges){
+        CharacterFullDTO characterUpdated = characterService.totalUpdateCharacter(id, characterWithChanges); 
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(characterUpdated);  
     }
     
     @DeleteMapping("/{id}")
