@@ -18,6 +18,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Setter @Getter
 public final class MovieDetailsDTO {
+    private Long id;
+    
     @NotBlank(message = "is required")
     private String title;
     

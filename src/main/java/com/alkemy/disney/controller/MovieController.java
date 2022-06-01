@@ -1,14 +1,12 @@
 package com.alkemy.disney.controller;
 
 import com.alkemy.disney.dto.*;
-import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
 
@@ -25,14 +23,14 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieFullDTO> getMovieById (@PathVariable Long id) {
+    public ResponseEntity<MovieDetailsDTO> getMovieById (@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.getMovieById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMovieById (@PathVariable Long id) {
+    public ResponseEntity<Boolean> deleteMovieById (@PathVariable Long id) {
         movieService.deleteMovieById(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
     }
 
     @PostMapping
@@ -41,7 +39,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieFullDTO> putMovie (@PathVariable Long id,@RequestBody MovieWithoutCharactersDTO movie) {
+    public ResponseEntity<MovieDetailsDTO> putMovie (@PathVariable Long id,@RequestBody MovieWithoutCharactersDTO movie) {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.putMovie(id, movie));
     }
 

@@ -30,9 +30,9 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
-    public MovieFullDTO getMovieById(Long id) {
+    public MovieDetailsDTO getMovieById(Long id) {
         MovieEntity movie = movieRepository.findById(id).orElseThrow(() -> new EntityNotFound(MovieEntity.class));
-        return MovieMapper.toFullDTO(movie);
+        return MovieMapper.toDetailsDTO(movie);
     }
 
     @Override
@@ -54,11 +54,11 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
-    public MovieFullDTO putMovie (Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO) {
+    public MovieDetailsDTO putMovie (Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO) {
         MovieEntity movieEntity = movieRepository.findById(id).orElseThrow(() -> new EntityNotFound(MovieEntity.class));
         MovieMapper.movieEntityDataUpdate(movieWithoutCharactersDTO, movieEntity);
         MovieEntity movieSaved = movieRepository.save(movieEntity);
-        return MovieMapper.toFullDTO(movieSaved);
+        return MovieMapper.toDetailsDTO(movieSaved);
     }
 
     @Override

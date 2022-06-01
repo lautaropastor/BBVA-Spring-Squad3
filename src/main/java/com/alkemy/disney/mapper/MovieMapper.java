@@ -60,37 +60,26 @@ public final class MovieMapper {
 
         return movieWithoutCharactersDTO;
     }
-
-    public static MovieFullDTO toFullDTO(MovieEntity movieEntity) {
+    
+        public static MovieDetailsDTO toDetailsDTO(MovieEntity movieEntity) {
         if(movieEntity == null) {
             return null;
         }
 
-        MovieFullDTO movieFullDTO = new MovieFullDTO();
+        MovieDetailsDTO movieDetailsDTO = new MovieDetailsDTO();
 
-        movieFullDTO.setId(movieEntity.getId());
-        movieFullDTO.setTitle(movieEntity.getTitle());
-        movieFullDTO.setImage(movieEntity.getImage());
-        movieFullDTO.setRealasedDate(movieEntity.getRealasedDate());
-        movieFullDTO.setCalification(movieEntity.getCalification());
-        movieFullDTO.setGenre(movieEntity.getGenre());
-        movieFullDTO.setCharacters(movieEntity.getCharacters());      
-//        Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
-//        movieEntity.getCharacters().forEach(character -> {
-//            CharacterWithoutMoviesDTO characterWithoutMoviesDTO = new CharacterWithoutMoviesDTO();
-//            characterWithoutMoviesDTO.setId(character.getId());
-//            characterWithoutMoviesDTO.setImage(character.getImage());
-//            characterWithoutMoviesDTO.setName(character.getName());
-//            characterWithoutMoviesDTO.setWeight(character.getWeight());
-//            characterWithoutMoviesDTO.setHistory(character.getHistory());
-//            characterWithoutMoviesDTO.setAge(character.getAge());
-//            
-//            characters.add(characterWithoutMoviesDTO);
-//   
-//        });
-//        movieFullDTO.setCharacters(characters);    
-        return movieFullDTO;
+        movieDetailsDTO.setId(movieEntity.getId());
+        movieDetailsDTO.setTitle(movieEntity.getTitle());
+        movieDetailsDTO.setImage(movieEntity.getImage());
+        movieDetailsDTO.setRealasedDate(movieEntity.getRealasedDate());
+        movieDetailsDTO.setCalification(movieEntity.getCalification());
+        movieDetailsDTO.setGenre(movieEntity.getGenre());
+        movieDetailsDTO.setCharacters(movieEntity.getCharacters());
+
+        return movieDetailsDTO;
     }
+    
+    
 
     public static void movieEntityDataUpdate(MovieWithoutCharactersDTO movieWithoutCharactersDTO, MovieEntity movieEntity){
 
