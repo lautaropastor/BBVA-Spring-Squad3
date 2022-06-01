@@ -24,28 +24,28 @@ public class MovieController {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.getMovies());
     }
 
-    @GetMapping(path = "{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<MovieFullDTO> getMovieById (@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.getMovieById(id));
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovieById (@PathVariable Long id) {
         movieService.deleteMovieById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<MovieCharacterWithoutMoviesDTO> postMovie (@Valid @RequestBody MovieDetailsDTO movie) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postMovie(movie));
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<MovieFullDTO> putMovie (@PathVariable Long id,@RequestBody MovieWithoutCharactersDTO movie) {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.putMovie(id, movie));
     }
 
-    @PostMapping(path = "/{idMovie}/characters/{idCharacter}")
+    @PostMapping("/{idMovie}/characters/{idCharacter}")
     public ResponseEntity<MovieCharacterWithoutMoviesDTO> postCharacterInMovie (@PathVariable Long idMovie, @PathVariable Long idCharacter) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postCharacterInMovie(idMovie, idCharacter));
     }

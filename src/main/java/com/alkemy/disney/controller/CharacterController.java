@@ -30,27 +30,19 @@ public class CharacterController {
     
     @GetMapping
     public ResponseEntity<Set<CharacterDTO>> getAllCharacters(){
-       
-        Set<CharacterDTO> characterList = characterService.getAllCharacters();
-        
-        HttpStatus statusCode = (characterList.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
-        
-        return new ResponseEntity<>(characterList, statusCode);
+        Set<CharacterDTO> characterList = characterService.getAllCharacters();  
+        return new ResponseEntity<>(characterList, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<CharacterDetailsDTO> getCharacterById(@PathVariable Long id){
-        
-        CharacterDetailsDTO character = characterService.getCharacterById(id);
-        
+        CharacterDetailsDTO character = characterService.getCharacterById(id);   
         return ResponseEntity.ok().body(character);
     }
     
     @PostMapping
     public ResponseEntity<CharacterFullDTO> postCharacter(@Valid @RequestBody CharacterDetailsDTO newCharacter) {
-        
         CharacterFullDTO characterSaved = characterService.saveCharacter(newCharacter);
-        
         return ResponseEntity.status(HttpStatus.CREATED).body(characterSaved);
     }
     
