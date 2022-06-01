@@ -5,8 +5,10 @@ import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.exception.EntityAlreadyExists;
 import com.alkemy.disney.exception.EntityNotFound;
+import com.alkemy.disney.mapper.GenreMapper;
 import com.alkemy.disney.mapper.MovieMapper;
 import com.alkemy.disney.repository.specifications.CharacterRepository;
+import com.alkemy.disney.repository.specifications.GenreRepository;
 import com.alkemy.disney.repository.specifications.MovieRepository;
 import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,10 @@ public class MovieServiceImpl implements IMovieService {
 
     @Autowired
     private CharacterRepository characterRepository;
-
+    
+    @Autowired
+    private GenreRepository genreRepository;
+    
     @Override
     public Set<MovieSimpleDTO> getMovies() {
         Set<MovieSimpleDTO> listMoviesDto = MovieMapper.toSetDTO(movieRepository.findAll());
@@ -50,7 +55,9 @@ public class MovieServiceImpl implements IMovieService {
 //        movieDTO.setCharacters(characters);
         MovieEntity movie = MovieMapper.toEntity(movieDTO);
         MovieEntity movieSaved = movieRepository.save(movie);
-        return MovieMapper.toDetailsDTO(movieSaved);
+        MovieDetailsDTO movieDetailsSaved = MovieMapper.toDetailsDTO(movieSaved);
+        movieDetailsSaved.setGenre(GenreMapper.genreEntityToDTO(genreRepository.getById(movieDTO.getGenre().getId()))); 
+        return movieDetailsSaved;
     }
 
     @Override
