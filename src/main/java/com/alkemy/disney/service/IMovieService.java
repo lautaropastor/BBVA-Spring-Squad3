@@ -9,8 +9,8 @@ public interface IMovieService {
     Set<MovieSimpleDTO> getMovies();
     MovieDetailsDTO getMovieById(Long id);
     void deleteMovieById(Long id);
-    MovieCharacterWithoutMoviesDTO postMovie(MovieDetailsDTO movie);
+    MovieDetailsDTO postMovie(MovieDetailsDTO movie);
     MovieDetailsDTO putMovie(Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO);
-    MovieCharacterWithoutMoviesDTO postCharacterInMovie(Long idMovie, Long idCharacter);
+    MovieDetailsDTO postCharacterInMovie(Long idMovie, Long idCharacter);
     boolean removeCharacterInMovie(Long idMovie, Long idCharacter);
 }

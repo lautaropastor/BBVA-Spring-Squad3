@@ -3,6 +3,7 @@ package com.alkemy.disney.mapper;
 import com.alkemy.disney.dto.CharacterSimpleDTO;
 import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
+import com.alkemy.disney.dto.MovieWithoutCharactersDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 
 import java.util.ArrayList;
@@ -35,7 +36,12 @@ public class CharacterMapper {
         characterDetailsDTO.setAge(character.getAge());
         characterDetailsDTO.setWeight(character.getWeight());
         characterDetailsDTO.setHistory(character.getHistory());
-        characterDetailsDTO.setMovies(character.getMovies());
+        Set<MovieWithoutCharactersDTO> movies = new HashSet<>();
+        character.getMovies().forEach(movie -> {
+            MovieWithoutCharactersDTO movieWithoutCharactersDTO = MovieMapper.toWithoutCharactersDTO(movie);
+            movies.add(movieWithoutCharactersDTO);
+        });
+        characterDetailsDTO.setMovies(movies);
 
         return characterDetailsDTO;
     }
@@ -63,6 +69,20 @@ public class CharacterMapper {
         character.setAge(characterDetailsDTO.getAge());
         character.setWeight(characterDetailsDTO.getWeight());
         character.setHistory(characterDetailsDTO.getHistory());
+
+        return character;
+    }
+
+    public static CharacterEntity withoutMoviesDTOtoEntity (CharacterWithoutMoviesDTO characterWithoutMoviesDTO) {
+        if (characterWithoutMoviesDTO == null) {
+            return null;
+        }
+        CharacterEntity character = new CharacterEntity();
+        character.setImage(characterWithoutMoviesDTO.getImage());
+        character.setName(characterWithoutMoviesDTO.getName());
+        character.setAge(characterWithoutMoviesDTO.getAge());
+        character.setWeight(characterWithoutMoviesDTO.getWeight());
+        character.setHistory(characterWithoutMoviesDTO.getHistory());
 
         return character;
     }

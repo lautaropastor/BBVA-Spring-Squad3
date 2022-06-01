@@ -38,7 +38,12 @@ public final class MovieMapper {
         movieEntity.setRealasedDate(movieDetailsDTO.getRealasedDate());
         movieEntity.setCalification(movieDetailsDTO.getCalification());
         movieEntity.setGenre(movieDetailsDTO.getGenre());
-        movieEntity.setCharacters(movieDetailsDTO.getCharacters());
+        Set<CharacterEntity> characters = new HashSet<>();
+        movieDetailsDTO.getCharacters().forEach(character -> {
+            CharacterEntity characterWithoutMovies = CharacterMapper.withoutMoviesDTOtoEntity(character);
+            characters.add(characterWithoutMovies);
+        });
+        movieEntity.setCharacters(characters);
 
         return movieEntity;
     }
@@ -74,7 +79,12 @@ public final class MovieMapper {
         movieDetailsDTO.setRealasedDate(movieEntity.getRealasedDate());
         movieDetailsDTO.setCalification(movieEntity.getCalification());
         movieDetailsDTO.setGenre(movieEntity.getGenre());
-        movieDetailsDTO.setCharacters(movieEntity.getCharacters());
+        Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
+        movieEntity.getCharacters().forEach(character -> {
+            CharacterWithoutMoviesDTO characterWithoutMovies = CharacterMapper.toWithoutMoviesDTO(character);
+            characters.add(characterWithoutMovies);
+        });
+        movieDetailsDTO.setCharacters(characters);
 
         return movieDetailsDTO;
     }
@@ -117,17 +127,5 @@ public final class MovieMapper {
         Set<CharacterEntity> charactersInMovie = movie.getCharacters();
         charactersInMovie.add(character);
     }
-
-    public static MovieCharacterWithoutMoviesDTO toMovieCharacterWithoutMoviesDTO(MovieEntity movie) {
-        MovieCharacterWithoutMoviesDTO movieCharacterWithoutMoviesDTO = new MovieCharacterWithoutMoviesDTO();
-        movieCharacterWithoutMoviesDTO.setId(movie.getId());
-        movieCharacterWithoutMoviesDTO.setTitle(movie.getTitle());
-        movieCharacterWithoutMoviesDTO.setImage(movie.getImage());
-        movieCharacterWithoutMoviesDTO.setRealasedDate(movie.getRealasedDate());
-        movieCharacterWithoutMoviesDTO.setCalification(movie.getCalification());
-        movieCharacterWithoutMoviesDTO.setGenre(movie.getGenre());
-        movieCharacterWithoutMoviesDTO.setCharacters(CharacterMapper.toListCharacterWitouhMoviesDto(movie.getCharacters()));
-
-        return movieCharacterWithoutMoviesDTO;
-    }
+    
 }

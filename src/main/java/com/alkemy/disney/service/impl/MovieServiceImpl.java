@@ -45,12 +45,12 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
-    public MovieCharacterWithoutMoviesDTO postMovie (MovieDetailsDTO movieDTO) {
+    public MovieDetailsDTO postMovie (MovieDetailsDTO movieDTO) {
 //        Set<CharacterEntity> characters = getListWithExistsEntities(movieDTO.getCharacters());
 //        movieDTO.setCharacters(characters);
         MovieEntity movie = MovieMapper.toEntity(movieDTO);
         MovieEntity movieSaved = movieRepository.save(movie);
-        return MovieMapper.toMovieCharacterWithoutMoviesDTO(movieSaved);
+        return MovieMapper.toDetailsDTO(movieSaved);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MovieServiceImpl implements IMovieService {
     }
 
     @Override
-    public MovieCharacterWithoutMoviesDTO postCharacterInMovie (Long idMovie, Long idCharacter) {
+    public MovieDetailsDTO postCharacterInMovie (Long idMovie, Long idCharacter) {
         if(!movieRepository.existsById(idMovie)) throw new EntityNotFound(MovieEntity.class);
         
         if(!characterRepository.existsById(idCharacter)) throw new EntityNotFound(CharacterEntity.class);
@@ -74,7 +74,7 @@ public class MovieServiceImpl implements IMovieService {
       
         movie.addCharacter(character);
         movieRepository.save(movie);
-        return MovieMapper.toMovieCharacterWithoutMoviesDTO(movie);
+        return MovieMapper.toDetailsDTO(movie);
     }
 
 //    private Set<CharacterEntity> getListWithExistsEntities(Set<CharacterEntity> list) {
@@ -92,11 +92,8 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public boolean removeCharacterInMovie(Long idMovie, Long idCharacter) {
-        MovieEntity movie = movieRepository.getById(idMovie);
-        if(!characterRepository.existsById(idCharacter)) {
-            throw new EntityNotFound(CharacterEntity.class);
-        }
-        CharacterEntity characterToRemove = characterRepository.getById(idCharacter);
+        MovieEntity movie = movieRepository.findById(idMovie).orElseThrow(() -> new EntityNotFound(MovieEntity.class));
+        CharacterEntity characterToRemove = characterRepository.findById(idCharacter).orElseThrow(() -> new EntityNotFound(CharacterEntity.class));
         movie.removeCharacter(characterToRemove);
         movieRepository.save(movie);
         return true;

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.alkemy.disney.entity.MovieEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +24,5 @@ public class CharacterDetailsDTO implements Serializable {
     private Integer age;
     @NotNull(message = "must be completed") @Positive(message = "must be positive")
     private Double weight;
-    private Set<MovieEntity> movies = new HashSet<>();
+    private Set<MovieWithoutCharactersDTO> movies = new HashSet<>();
 }

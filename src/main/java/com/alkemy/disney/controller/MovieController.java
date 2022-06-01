@@ -34,7 +34,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieCharacterWithoutMoviesDTO> postMovie (@Valid @RequestBody MovieDetailsDTO movie) {
+    public ResponseEntity<MovieDetailsDTO> postMovie (@Valid @RequestBody MovieDetailsDTO movie) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postMovie(movie));
     }
 
@@ -44,7 +44,7 @@ public class MovieController {
     }
 
     @PostMapping("/{idMovie}/characters/{idCharacter}")
-    public ResponseEntity<MovieCharacterWithoutMoviesDTO> postCharacterInMovie (@PathVariable Long idMovie, @PathVariable Long idCharacter) {
+    public ResponseEntity<MovieDetailsDTO> postCharacterInMovie (@PathVariable Long idMovie, @PathVariable Long idCharacter) {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.postCharacterInMovie(idMovie, idCharacter));
     }
     
