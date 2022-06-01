@@ -52,8 +52,8 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieCharacterWithoutMoviesDTO postMovie (MovieDetailsDTO movieDTO) {
-        Set<CharacterEntity> characters = getListWithExistsEntities(movieDTO.getCharacters());
-        movieDTO.setCharacters(characters);
+//        Set<CharacterEntity> characters = getListWithExistsEntities(movieDTO.getCharacters());
+//        movieDTO.setCharacters(characters);
         MovieEntity movie = MovieMapper.toEntity(movieDTO);
         MovieEntity movieSaved = movieRepository.save(movie);
         return MovieMapper.toMovieCharacterWithoutMoviesDTO(movieSaved);
@@ -79,18 +79,18 @@ public class MovieServiceImpl implements IMovieService {
         return MovieMapper.toMovieCharacterWithoutMoviesDTO(movie);
     }
 
-    private Set<CharacterEntity> getListWithExistsEntities(Set<CharacterEntity> list) {
-        Set<CharacterEntity> characters = new HashSet<>();
-        for (CharacterEntity character : list) {
-            if(character.getId() != null) {
-                Long idCharacter = character.getId();
-                characters.add(characterRepository.getById(idCharacter));
-            } else {
-                characters.add(character);
-            }
-        }
-        return characters;
-    }
+//    private Set<CharacterEntity> getListWithExistsEntities(Set<CharacterEntity> list) {
+//        Set<CharacterEntity> characters = new HashSet<>();
+//        for (CharacterEntity character : list) {
+//            if(character.getId() != null) {
+//                Long idCharacter = character.getId();
+//                characters.add(characterRepository.getById(idCharacter));
+//            } else {
+//                characters.add(character);
+//            }
+//        }
+//        return characters;
+//    }
 
     @Override
     public boolean removeCharacterInMovie(Long idMovie, Long idCharacter) {
