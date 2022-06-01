@@ -1,8 +1,7 @@
 package com.alkemy.disney.controller;
 
-import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterSimpleDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
-import com.alkemy.disney.dto.CharacterFullDTO;
 import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.service.ICharacterService;
@@ -30,8 +29,8 @@ public class CharacterController {
     ICharacterService characterService;
     
     @GetMapping
-    public ResponseEntity<Set<CharacterDTO>> getAllCharacters(){
-        Set<CharacterDTO> characterList = characterService.getAllCharacters();  
+    public ResponseEntity<Set<CharacterSimpleDTO>> getAllCharacters(){
+        Set<CharacterSimpleDTO> characterList = characterService.getAllCharacters();  
         return new ResponseEntity<>(characterList, HttpStatus.OK);
     }
     
@@ -42,14 +41,14 @@ public class CharacterController {
     }
     
     @PostMapping
-    public ResponseEntity<CharacterFullDTO> postCharacter(@Valid @RequestBody CharacterDetailsDTO newCharacter) {
-        CharacterFullDTO characterSaved = characterService.saveCharacter(newCharacter);
+    public ResponseEntity<CharacterDetailsDTO> postCharacter(@Valid @RequestBody CharacterDetailsDTO newCharacter) {
+        CharacterDetailsDTO characterSaved = characterService.saveCharacter(newCharacter);
         return ResponseEntity.status(HttpStatus.CREATED).body(characterSaved);
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<CharacterFullDTO> updateCharacter(@PathVariable Long id, @Valid @RequestBody CharacterWithoutMoviesDTO characterWithChanges){
-        CharacterFullDTO characterUpdated = characterService.totalUpdateCharacter(id, characterWithChanges); 
+    public ResponseEntity<CharacterDetailsDTO> updateCharacter(@PathVariable Long id, @Valid @RequestBody CharacterWithoutMoviesDTO characterWithChanges){
+        CharacterDetailsDTO characterUpdated = characterService.totalUpdateCharacter(id, characterWithChanges); 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(characterUpdated);  
     }
     

@@ -1,8 +1,7 @@
 package com.alkemy.disney.service.impl;
 
-import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterSimpleDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
-import com.alkemy.disney.dto.CharacterFullDTO;
 import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.exception.EntityNotFound;
@@ -23,9 +22,9 @@ public class CharacterService implements ICharacterService{
 
     @Override
     @Transactional
-    public Set<CharacterDTO> getAllCharacters(){
+    public Set<CharacterSimpleDTO> getAllCharacters(){
         List<CharacterEntity> charactersFull = characterRepository.findAll();
-        Set<CharacterDTO> characterList = CharacterMapper.toSetDTO(charactersFull);
+        Set<CharacterSimpleDTO> characterList = CharacterMapper.toSetDTO(charactersFull);
         return characterList;
     }
 
@@ -39,20 +38,20 @@ public class CharacterService implements ICharacterService{
 
     @Override
     @Transactional
-    public CharacterFullDTO saveCharacter(CharacterDetailsDTO newCharacter){
+    public CharacterDetailsDTO saveCharacter(CharacterDetailsDTO newCharacter){
         CharacterEntity characterEntity = CharacterMapper.detailsDTOtoEntity(newCharacter);
         CharacterEntity characterEntitySaved = characterRepository.save(characterEntity);
-        CharacterFullDTO characterFullDTO = CharacterMapper.toFullDTO(characterEntitySaved);
+        CharacterDetailsDTO characterFullDTO = CharacterMapper.toDetailsDTO(characterEntitySaved);
         return characterFullDTO;
     }
 
     @Override
     @Transactional
-    public CharacterFullDTO totalUpdateCharacter(Long id, CharacterWithoutMoviesDTO characterWithChanges){
+    public CharacterDetailsDTO totalUpdateCharacter(Long id, CharacterWithoutMoviesDTO characterWithChanges){
         CharacterEntity characterToUpdate = characterRepository.findById(id).orElseThrow(() -> new EntityNotFound(CharacterEntity.class));
         CharacterMapper.characterEntityDataUpdate(characterWithChanges, characterToUpdate);
         CharacterEntity updatedCharacter = characterRepository.save(characterToUpdate);
-        CharacterFullDTO characterFullDTO = CharacterMapper.toFullDTO(updatedCharacter);
+        CharacterDetailsDTO characterFullDTO = CharacterMapper.toDetailsDTO(updatedCharacter);
         return characterFullDTO;       
     }
 

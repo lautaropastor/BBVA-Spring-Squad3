@@ -1,9 +1,8 @@
 package com.alkemy.disney.mapper;
 
-import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterSimpleDTO;
 import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
-import com.alkemy.disney.dto.CharacterFullDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 
 import java.util.ArrayList;
@@ -13,11 +12,11 @@ import java.util.Set;
 
 public class CharacterMapper {
 
-    public static CharacterDTO toDTO (CharacterEntity character) {
+    public static CharacterSimpleDTO toDTO (CharacterEntity character) {
         if (character == null) {
             return null;
         }
-        CharacterDTO characterDTO = new CharacterDTO();
+        CharacterSimpleDTO characterDTO = new CharacterSimpleDTO();
         characterDTO.setId(character.getId());
         characterDTO.setName(character.getName());
         characterDTO.setImage(character.getImage());
@@ -30,6 +29,7 @@ public class CharacterMapper {
             return null;
         }
         CharacterDetailsDTO characterDetailsDTO = new CharacterDetailsDTO();
+        characterDetailsDTO.setId(character.getId());
         characterDetailsDTO.setImage(character.getImage());
         characterDetailsDTO.setName(character.getName());
         characterDetailsDTO.setAge(character.getAge());
@@ -52,18 +52,6 @@ public class CharacterMapper {
         return characterWithoutMoviesDTO;
     }
 
-    public static CharacterFullDTO toFullDTO (CharacterEntity character){
-        CharacterFullDTO characterFullDTO = new CharacterFullDTO();
-        characterFullDTO.setId(character.getId());
-        characterFullDTO.setImage(character.getImage());
-        characterFullDTO.setName(character.getName());
-        characterFullDTO.setAge(character.getAge());
-        characterFullDTO.setWeight(character.getWeight());
-        characterFullDTO.setHistory(character.getHistory());
-        characterFullDTO.setMovies(character.getMovies());
-
-        return characterFullDTO;
-    }
 
     public static CharacterEntity detailsDTOtoEntity (CharacterDetailsDTO characterDetailsDTO) {
         if (characterDetailsDTO == null) {
@@ -79,22 +67,6 @@ public class CharacterMapper {
         return character;
     }
 
-    public static CharacterEntity fullDTOtoEntity (CharacterFullDTO characterFullDTO) {
-        if (characterFullDTO == null) {
-            return null;
-        }
-        CharacterEntity character = new CharacterEntity();
-        character.setId(characterFullDTO.getId());
-        character.setImage(characterFullDTO.getImage());
-        character.setName(characterFullDTO.getName());
-        character.setAge(characterFullDTO.getAge());
-        character.setWeight(characterFullDTO.getWeight());
-        character.setHistory(characterFullDTO.getHistory());
-        character.setMovies(characterFullDTO.getMovies());
-
-        return character;
-    }
-
     public static Set<CharacterDetailsDTO> toListFullDTO (List<CharacterEntity> setEntities) {
         Set<CharacterDetailsDTO> characterDTOSet = new HashSet<>();
 
@@ -104,8 +76,8 @@ public class CharacterMapper {
         return characterDTOSet;
     }
 
-    public static Set<CharacterDTO> toSetDTO (List<CharacterEntity> setEntities) {
-        Set<CharacterDTO> charactersDTOSet = new HashSet<>();
+    public static Set<CharacterSimpleDTO> toSetDTO (List<CharacterEntity> setEntities) {
+        Set<CharacterSimpleDTO> charactersDTOSet = new HashSet<>();
 
         for (CharacterEntity character : setEntities) {
             charactersDTOSet.add(toDTO(character));
@@ -114,8 +86,8 @@ public class CharacterMapper {
         return charactersDTOSet;
     }
 
-    public static List<CharacterDTO> toListDTO (List<CharacterEntity> setEntities) {
-        List<CharacterDTO> charactersDTOList = new ArrayList<>();
+    public static List<CharacterSimpleDTO> toListDTO (List<CharacterEntity> setEntities) {
+        List<CharacterSimpleDTO> charactersDTOList = new ArrayList<>();
 
         for (CharacterEntity character : setEntities) {
             charactersDTOList.add(toDTO(character));
