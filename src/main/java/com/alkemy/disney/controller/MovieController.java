@@ -20,7 +20,7 @@ public class MovieController {
     private IMovieService movieService;
 
     @GetMapping()
-    public ResponseEntity<Set<MovieDTO>> getMovies() {
+    public ResponseEntity<Set<MovieSimpleDTO>> getMovies() {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.getMovies());
     }
 

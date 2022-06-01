@@ -30,8 +30,8 @@ public class MovieServiceImpl implements IMovieService {
     private CharacterRepository characterRepository;
 
     @Override
-    public Set<MovieDTO> getMovies() {
-        Set<MovieDTO> listMoviesDto = MovieMapper.toSetDTO(movieRepository.findAll());
+    public Set<MovieSimpleDTO> getMovies() {
+        Set<MovieSimpleDTO> listMoviesDto = MovieMapper.toSetDTO(movieRepository.findAll());
         return listMoviesDto;
     }
 

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface IMovieService {
 
-    Set<MovieDTO> getMovies();
+    Set<MovieSimpleDTO> getMovies();
     MovieFullDTO getMovieById(Long id);
     void deleteMovieById(Long id);
     MovieCharacterWithoutMoviesDTO postMovie(MovieDetailsDTO movie);

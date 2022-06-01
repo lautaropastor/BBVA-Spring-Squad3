@@ -103,10 +103,10 @@ public final class MovieMapper {
 
     }
 
-    public static MovieDTO toDTO(MovieEntity movieEntity) {
+    public static MovieSimpleDTO toDTO(MovieEntity movieEntity) {
         if(movieEntity == null) return null;
 
-        MovieDTO movieDTO = new MovieDTO();
+        MovieSimpleDTO movieDTO = new MovieSimpleDTO();
 
         movieDTO.setId(movieEntity.getId());
         movieDTO.setTitle(movieEntity.getTitle());
@@ -117,8 +117,8 @@ public final class MovieMapper {
 
     }
 
-    public static Set<MovieDTO> toSetDTO(Iterable<MovieEntity> movies) {
-        Set<MovieDTO> moviesDTO = new HashSet();
+    public static Set<MovieSimpleDTO> toSetDTO(Iterable<MovieEntity> movies) {
+        Set<MovieSimpleDTO> moviesDTO = new HashSet();
         movies.forEach(movie -> {
             moviesDTO.add(MovieMapper.toDTO(movie));
         });
