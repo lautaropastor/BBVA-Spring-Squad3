@@ -32,7 +32,7 @@ public final class MovieDetailsDTO {
     private Integer calification;
     
     @NotNull(message = "is required")
-    private GenreEntity genre; 
+    private GenreDTO genre; 
     
     @NotEmpty(message = "at least must exist one")
     private Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();

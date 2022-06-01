@@ -6,7 +6,6 @@ import com.alkemy.disney.entity.MovieEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public final class MovieMapper {
     
     public static MovieEntity toEntity(MovieWithoutCharactersDTO movieWithoutCharactersDTO) {    
@@ -37,7 +36,7 @@ public final class MovieMapper {
         movieEntity.setImage(movieDetailsDTO.getImage());
         movieEntity.setRealasedDate(movieDetailsDTO.getRealasedDate());
         movieEntity.setCalification(movieDetailsDTO.getCalification());
-        movieEntity.setGenre(movieDetailsDTO.getGenre());
+        movieEntity.setGenre(GenreMapper.genreDTOToEntity(movieDetailsDTO.getGenre()));
         Set<CharacterEntity> characters = new HashSet<>();
         movieDetailsDTO.getCharacters().forEach(character -> {
             CharacterEntity characterWithoutMovies = CharacterMapper.withoutMoviesDTOtoEntity(character);
@@ -78,7 +77,7 @@ public final class MovieMapper {
         movieDetailsDTO.setImage(movieEntity.getImage());
         movieDetailsDTO.setRealasedDate(movieEntity.getRealasedDate());
         movieDetailsDTO.setCalification(movieEntity.getCalification());
-        movieDetailsDTO.setGenre(movieEntity.getGenre());
+        movieDetailsDTO.setGenre(GenreMapper.genreEntityToDTO(movieEntity.getGenre()));
         Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
         movieEntity.getCharacters().forEach(character -> {
             CharacterWithoutMoviesDTO characterWithoutMovies = CharacterMapper.toWithoutMoviesDTO(character);

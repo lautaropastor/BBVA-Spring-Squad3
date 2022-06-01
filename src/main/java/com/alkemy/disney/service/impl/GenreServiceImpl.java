@@ -15,24 +15,21 @@ import java.util.List;
 public class GenreServiceImpl implements GenreService {
 
     @Autowired
-    private GenreMapper genreMapper;
-
-    @Autowired
     private GenreRepository genreRepository;
 
     @Override
     public GenreDTO postGenre(GenreDTO genreDto){
-        GenreEntity genreEntity = genreMapper.genreDTOToEntity(genreDto);
+        GenreEntity genreEntity = GenreMapper.genreDTOToEntity(genreDto);
         GenreEntity entitySaved = genreRepository.save(genreEntity);
-        return genreMapper.genreEntityToDTO(entitySaved);
+        return GenreMapper.genreEntityToDTO(entitySaved);
     }
 
     @Override
     public GenreDTO putGenre(Long genreId, GenreDTO newDto) {
         GenreEntity genreEntity = genreRepository.findById(genreId).orElseThrow(() -> new EntityNotFound(GenreEntity.class));
-        genreMapper.genreEntityDataUpdate(genreEntity, newDto);
+        GenreMapper.genreEntityDataUpdate(genreEntity, newDto);
         GenreEntity entitySaved = genreRepository.save(genreEntity);
-        return genreMapper.genreEntityToDTO(entitySaved);
+        return GenreMapper.genreEntityToDTO(entitySaved);
     }
 
     @Override
@@ -44,13 +41,13 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public GenreDTO getGenreById(Long genreId){
         GenreEntity genreEntity = genreRepository.findById(genreId).orElseThrow(() -> new EntityNotFound(GenreEntity.class));
-        return genreMapper.genreEntityToDTO(genreEntity);
+        return GenreMapper.genreEntityToDTO(genreEntity);
     }
 
     @Override
     public List<GenreDTO> getAllGenres() {
         List<GenreEntity> genreEntities = genreRepository.findAll();
-        return genreMapper.entityListToDTOList(genreEntities);
+        return GenreMapper.entityListToDTOList(genreEntities);
     }
 
 }
