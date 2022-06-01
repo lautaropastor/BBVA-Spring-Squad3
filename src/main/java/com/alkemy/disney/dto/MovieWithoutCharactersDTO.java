@@ -29,5 +29,6 @@ public class MovieWithoutCharactersDTO {
     private Integer calification;
             
     @NotNull(message = "is required")
-    private GenreEntity genre;   
+    private GenreDTO genre; 
+    
 }

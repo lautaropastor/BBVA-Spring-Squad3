@@ -2,6 +2,7 @@ package com.alkemy.disney.mapper;
 
 import com.alkemy.disney.dto.*;
 import com.alkemy.disney.entity.CharacterEntity;
+import com.alkemy.disney.entity.GenreEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,8 +21,7 @@ public final class MovieMapper {
         movieEntity.setImage(movieWithoutCharactersDTO.getImage());
         movieEntity.setRealasedDate(movieWithoutCharactersDTO.getRealasedDate());
         movieEntity.setCalification(movieWithoutCharactersDTO.getCalification());
-        movieEntity.setGenre(movieWithoutCharactersDTO.getGenre());
-        
+        movieEntity.setGenre(GenreMapper.genreDTOToEntity(movieWithoutCharactersDTO.getGenre()));        
         return movieEntity;         
     }
     
@@ -36,7 +36,11 @@ public final class MovieMapper {
         movieEntity.setImage(movieDetailsDTO.getImage());
         movieEntity.setRealasedDate(movieDetailsDTO.getRealasedDate());
         movieEntity.setCalification(movieDetailsDTO.getCalification());
-        movieEntity.setGenre(GenreMapper.genreDTOToEntity(movieDetailsDTO.getGenre()));
+        
+        GenreEntity genreEntity = new GenreEntity();
+        genreEntity.setId(movieDetailsDTO.getGenre().getId());
+        movieEntity.setGenre(genreEntity);
+        
         Set<CharacterEntity> characters = new HashSet<>();
         movieDetailsDTO.getCharacters().forEach(character -> {
             CharacterEntity characterWithoutMovies = CharacterMapper.withoutMoviesDTOtoEntity(character);
@@ -60,8 +64,7 @@ public final class MovieMapper {
         movieWithoutCharactersDTO.setImage(movieEntity.getImage());
         movieWithoutCharactersDTO.setRealasedDate(movieEntity.getRealasedDate());
         movieWithoutCharactersDTO.setCalification(movieEntity.getCalification());
-        movieWithoutCharactersDTO.setGenre(movieEntity.getGenre());
-
+        movieWithoutCharactersDTO.setGenre(GenreMapper.genreEntityToDTO(movieEntity.getGenre()));
         return movieWithoutCharactersDTO;
     }
     
@@ -96,7 +99,7 @@ public final class MovieMapper {
         movieEntity.setImage(movieWithoutCharactersDTO.getImage());
         movieEntity.setRealasedDate(movieWithoutCharactersDTO.getRealasedDate());
         movieEntity.setCalification(movieWithoutCharactersDTO.getCalification());
-        movieEntity.setGenre(movieWithoutCharactersDTO.getGenre());
+        movieEntity.setGenre(GenreMapper.genreDTOToEntity(movieWithoutCharactersDTO.getGenre()));
 
     }
 
