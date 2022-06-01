@@ -99,7 +99,7 @@ public final class MovieMapper {
         movieEntity.setImage(movieWithoutCharactersDTO.getImage());
         movieEntity.setRealasedDate(movieWithoutCharactersDTO.getRealasedDate());
         movieEntity.setCalification(movieWithoutCharactersDTO.getCalification());
-        movieEntity.setGenre(GenreMapper.genreDTOToEntity(movieWithoutCharactersDTO.getGenre()));
+        // movieEntity.setGenre(GenreMapper.genreDTOToEntity(movieWithoutCharactersDTO.getGenre()));
 
     }
 

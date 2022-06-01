@@ -2,6 +2,7 @@ package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.dto.*;
 import com.alkemy.disney.entity.CharacterEntity;
+import com.alkemy.disney.entity.GenreEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.exception.EntityAlreadyExists;
 import com.alkemy.disney.exception.EntityNotFound;
@@ -56,7 +57,8 @@ public class MovieServiceImpl implements IMovieService {
         MovieEntity movie = MovieMapper.toEntity(movieDTO);
         MovieEntity movieSaved = movieRepository.save(movie);
         MovieDetailsDTO movieDetailsSaved = MovieMapper.toDetailsDTO(movieSaved);
-        movieDetailsSaved.setGenre(GenreMapper.genreEntityToDTO(genreRepository.getById(movieDTO.getGenre().getId()))); 
+        GenreDTO genreDTO = GenreMapper.genreEntityToDTO(genreRepository.getById(movieDTO.getGenre().getId()));
+        movieDetailsSaved.setGenre(genreDTO);
         return movieDetailsSaved;
     }
 
@@ -64,6 +66,8 @@ public class MovieServiceImpl implements IMovieService {
     public MovieDetailsDTO putMovie (Long id, MovieWithoutCharactersDTO movieWithoutCharactersDTO) {
         MovieEntity movieEntity = movieRepository.findById(id).orElseThrow(() -> new EntityNotFound(MovieEntity.class));
         MovieMapper.movieEntityDataUpdate(movieWithoutCharactersDTO, movieEntity);
+        GenreEntity genreEntity = genreRepository.getById(movieWithoutCharactersDTO.getGenre().getId());
+        movieEntity.setGenre(genreEntity);
         MovieEntity movieSaved = movieRepository.save(movieEntity);
         return MovieMapper.toDetailsDTO(movieSaved);
     }
