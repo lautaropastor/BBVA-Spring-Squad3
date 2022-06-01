@@ -14,6 +14,7 @@ import javax.validation.constraints.Positive;
 
 @Getter @Setter
 public class CharacterDetailsDTO implements Serializable {
+    @NotEmpty(message = "must be completed")
     private String image;
     @NotEmpty(message = "must be completed")
     private String name;
