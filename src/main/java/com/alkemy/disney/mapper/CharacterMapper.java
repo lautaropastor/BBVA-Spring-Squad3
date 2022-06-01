@@ -5,7 +5,6 @@ import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterFullDTO;
 import com.alkemy.disney.entity.CharacterEntity;
-import com.alkemy.disney.entity.MovieEntity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -71,13 +70,11 @@ public class CharacterMapper {
             return null;
         }
         CharacterEntity character = new CharacterEntity();
-//        character.setId(characterDetailsDTO.getId());
         character.setImage(characterDetailsDTO.getImage());
         character.setName(characterDetailsDTO.getName());
         character.setAge(characterDetailsDTO.getAge());
         character.setWeight(characterDetailsDTO.getWeight());
         character.setHistory(characterDetailsDTO.getHistory());
-        character.setMovies(characterDetailsDTO.getMovies());
 
         return character;
     }
