@@ -1,6 +1,5 @@
 package com.alkemy.disney.dto;
 
-import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.GenreEntity;
 import java.util.Date;
 import java.util.HashSet;
@@ -18,6 +17,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Setter @Getter
 public final class MovieDetailsDTO {
+    private Long id;
+    
     @NotBlank(message = "is required")
     private String title;
     
@@ -31,8 +32,8 @@ public final class MovieDetailsDTO {
     private Integer calification;
     
     @NotNull(message = "is required")
-    private GenreEntity genre; 
+    private GenreDTO genre;
     
     @NotEmpty(message = "at least must exist one")
-    private Set<CharacterEntity> characters = new HashSet<>();
+    private Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
 }

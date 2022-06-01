@@ -1,5 +1,6 @@
 package com.alkemy.disney.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +17,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE characters SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
+@JsonIgnoreProperties(value = {"movies", "deleted"})
 public class CharacterEntity implements Serializable {
 
     @Id

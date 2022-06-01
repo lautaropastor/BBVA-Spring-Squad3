@@ -1,11 +1,11 @@
 package com.alkemy.disney.controller;
 
-import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterSimpleDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
-import com.alkemy.disney.dto.CharacterFullDTO;
+import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.service.ICharacterService;
-import java.util.Collection;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,53 +29,32 @@ public class CharacterController {
     ICharacterService characterService;
     
     @GetMapping
-    public ResponseEntity<Collection<CharacterDTO>> getAllCharacters(){
-       
-        Collection<CharacterDTO> characterList = characterService.getAllCharacters();
-        
-        HttpStatus statusCode = (characterList.isEmpty()) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
-        
-        return new ResponseEntity<>(characterList, statusCode);
+    public ResponseEntity<Set<CharacterSimpleDTO>> getAllCharacters(){
+        Set<CharacterSimpleDTO> characterList = characterService.getAllCharacters();  
+        return new ResponseEntity<>(characterList, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<CharacterDetailsDTO> getCharacterById(@PathVariable Long id){
-        
-        CharacterDetailsDTO character = characterService.getCharacterById(id);
-        
+        CharacterDetailsDTO character = characterService.getCharacterById(id);   
         return ResponseEntity.ok().body(character);
     }
     
     @PostMapping
-    public ResponseEntity<CharacterFullDTO> postCharacter(@Valid @RequestBody CharacterDetailsDTO newCharacter) {
-        
-        CharacterFullDTO characterSaved = characterService.saveCharacter(newCharacter);
-        
+    public ResponseEntity<CharacterDetailsDTO> postCharacter(@Valid @RequestBody CharacterDetailsDTO newCharacter) {
+        CharacterDetailsDTO characterSaved = characterService.saveCharacter(newCharacter);
         return ResponseEntity.status(HttpStatus.CREATED).body(characterSaved);
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<CharacterFullDTO> updateCharacter(@PathVariable Long id, @Valid @RequestBody CharacterFullDTO characterWithChanges){
-        
-        CharacterDetailsDTO characterToUpdate = characterService.getCharacterById(id);
-        
-        characterWithChanges.setId(id);
-        characterWithChanges.setMovies(characterToUpdate.getMovies());
-        
-        CharacterFullDTO characterUpdated = characterService.totalUpdateCharacter(characterWithChanges); 
-        
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(characterUpdated);
-        
+    public ResponseEntity<CharacterDetailsDTO> updateCharacter(@PathVariable Long id, @Valid @RequestBody CharacterWithoutMoviesDTO characterWithChanges){
+        CharacterDetailsDTO characterUpdated = characterService.totalUpdateCharacter(id, characterWithChanges); 
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(characterUpdated);  
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteCharacter(@PathVariable Long id){
-        
-        Boolean isDeleted = characterService.deleteCharacter(id);
-        
-        HttpStatus statusCode = isDeleted ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        
-        return ResponseEntity.status(statusCode).body(isDeleted);
+    public ResponseEntity<Boolean> deleteCharacter(@PathVariable Long id){        
+        return ResponseEntity.status(HttpStatus.OK).body(characterService.deleteCharacter(id));
     }
     
     // TODO: @PatchMapping

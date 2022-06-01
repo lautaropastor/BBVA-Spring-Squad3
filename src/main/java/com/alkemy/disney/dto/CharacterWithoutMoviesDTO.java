@@ -4,9 +4,6 @@ import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 @Getter @Setter
 public class CharacterWithoutMoviesDTO implements Serializable {
     private Long id;

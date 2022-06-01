@@ -2,11 +2,10 @@ package com.alkemy.disney.mapper;
 
 import com.alkemy.disney.dto.*;
 import com.alkemy.disney.entity.CharacterEntity;
+import com.alkemy.disney.entity.GenreEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
-
 
 public final class MovieMapper {
     
@@ -22,8 +21,7 @@ public final class MovieMapper {
         movieEntity.setImage(movieWithoutCharactersDTO.getImage());
         movieEntity.setRealasedDate(movieWithoutCharactersDTO.getRealasedDate());
         movieEntity.setCalification(movieWithoutCharactersDTO.getCalification());
-        movieEntity.setGenre(movieWithoutCharactersDTO.getGenre());
-        
+        movieEntity.setGenre(GenreMapper.genreDTOToEntity(movieWithoutCharactersDTO.getGenre()));        
         return movieEntity;         
     }
     
@@ -38,8 +36,17 @@ public final class MovieMapper {
         movieEntity.setImage(movieDetailsDTO.getImage());
         movieEntity.setRealasedDate(movieDetailsDTO.getRealasedDate());
         movieEntity.setCalification(movieDetailsDTO.getCalification());
-        movieEntity.setGenre(movieDetailsDTO.getGenre());
-        movieEntity.setCharacters(movieDetailsDTO.getCharacters());
+        
+        GenreEntity genreEntity = new GenreEntity();
+        genreEntity.setId(movieDetailsDTO.getGenre().getId());
+        movieEntity.setGenre(genreEntity);
+        
+        Set<CharacterEntity> characters = new HashSet<>();
+        movieDetailsDTO.getCharacters().forEach(character -> {
+            CharacterEntity characterWithoutMovies = CharacterMapper.withoutMoviesDTOtoEntity(character);
+            characters.add(characterWithoutMovies);
+        });
+        movieEntity.setCharacters(characters);
 
         return movieEntity;
     }
@@ -57,41 +64,34 @@ public final class MovieMapper {
         movieWithoutCharactersDTO.setImage(movieEntity.getImage());
         movieWithoutCharactersDTO.setRealasedDate(movieEntity.getRealasedDate());
         movieWithoutCharactersDTO.setCalification(movieEntity.getCalification());
-        movieWithoutCharactersDTO.setGenre(movieEntity.getGenre());
-
+        movieWithoutCharactersDTO.setGenre(GenreMapper.genreEntityToDTO(movieEntity.getGenre()));
         return movieWithoutCharactersDTO;
     }
-
-    public static MovieFullDTO toFullDTO(MovieEntity movieEntity) {
+    
+        public static MovieDetailsDTO toDetailsDTO(MovieEntity movieEntity) {
         if(movieEntity == null) {
             return null;
         }
 
-        MovieFullDTO movieFullDTO = new MovieFullDTO();
+        MovieDetailsDTO movieDetailsDTO = new MovieDetailsDTO();
 
-        movieFullDTO.setId(movieEntity.getId());
-        movieFullDTO.setTitle(movieEntity.getTitle());
-        movieFullDTO.setImage(movieEntity.getImage());
-        movieFullDTO.setRealasedDate(movieEntity.getRealasedDate());
-        movieFullDTO.setCalification(movieEntity.getCalification());
-        movieFullDTO.setGenre(movieEntity.getGenre());
+        movieDetailsDTO.setId(movieEntity.getId());
+        movieDetailsDTO.setTitle(movieEntity.getTitle());
+        movieDetailsDTO.setImage(movieEntity.getImage());
+        movieDetailsDTO.setRealasedDate(movieEntity.getRealasedDate());
+        movieDetailsDTO.setCalification(movieEntity.getCalification());
+        movieDetailsDTO.setGenre(GenreMapper.genreEntityToDTO(movieEntity.getGenre()));
         Set<CharacterWithoutMoviesDTO> characters = new HashSet<>();
         movieEntity.getCharacters().forEach(character -> {
-            CharacterWithoutMoviesDTO characterWithoutMoviesDTO = new CharacterWithoutMoviesDTO();
-            characterWithoutMoviesDTO.setId(character.getId());
-            characterWithoutMoviesDTO.setImage(character.getImage());
-            characterWithoutMoviesDTO.setName(character.getName());
-            characterWithoutMoviesDTO.setWeight(character.getWeight());
-            characterWithoutMoviesDTO.setHistory(character.getHistory());
-            characterWithoutMoviesDTO.setAge(character.getAge());
-            
-            characters.add(characterWithoutMoviesDTO);
-   
+            CharacterWithoutMoviesDTO characterWithoutMovies = CharacterMapper.toWithoutMoviesDTO(character);
+            characters.add(characterWithoutMovies);
         });
-        movieFullDTO.setCharacters(characters);
-        return movieFullDTO;
+        movieDetailsDTO.setCharacters(characters);
 
+        return movieDetailsDTO;
     }
+    
+    
 
     public static void movieEntityDataUpdate(MovieWithoutCharactersDTO movieWithoutCharactersDTO, MovieEntity movieEntity){
 
@@ -99,14 +99,14 @@ public final class MovieMapper {
         movieEntity.setImage(movieWithoutCharactersDTO.getImage());
         movieEntity.setRealasedDate(movieWithoutCharactersDTO.getRealasedDate());
         movieEntity.setCalification(movieWithoutCharactersDTO.getCalification());
-        movieEntity.setGenre(movieWithoutCharactersDTO.getGenre());
+        // movieEntity.setGenre(GenreMapper.genreDTOToEntity(movieWithoutCharactersDTO.getGenre()));
 
     }
 
-    public static MovieDTO toDTO(MovieEntity movieEntity) {
+    public static MovieSimpleDTO toDTO(MovieEntity movieEntity) {
         if(movieEntity == null) return null;
 
-        MovieDTO movieDTO = new MovieDTO();
+        MovieSimpleDTO movieDTO = new MovieSimpleDTO();
 
         movieDTO.setId(movieEntity.getId());
         movieDTO.setTitle(movieEntity.getTitle());
@@ -117,8 +117,8 @@ public final class MovieMapper {
 
     }
 
-    public static Set<MovieDTO> toSetDTO(Iterable<MovieEntity> movies) {
-        Set<MovieDTO> moviesDTO = new HashSet();
+    public static Set<MovieSimpleDTO> toSetDTO(Iterable<MovieEntity> movies) {
+        Set<MovieSimpleDTO> moviesDTO = new HashSet();
         movies.forEach(movie -> {
             moviesDTO.add(MovieMapper.toDTO(movie));
         });
@@ -129,17 +129,5 @@ public final class MovieMapper {
         Set<CharacterEntity> charactersInMovie = movie.getCharacters();
         charactersInMovie.add(character);
     }
-
-    public static MovieCharacterWithoutMoviesDTO toMovieCharacterWithoutMoviesDTO(MovieEntity movie) {
-        MovieCharacterWithoutMoviesDTO movieCharacterWithoutMoviesDTO = new MovieCharacterWithoutMoviesDTO();
-        movieCharacterWithoutMoviesDTO.setId(movie.getId());
-        movieCharacterWithoutMoviesDTO.setTitle(movie.getTitle());
-        movieCharacterWithoutMoviesDTO.setImage(movie.getImage());
-        movieCharacterWithoutMoviesDTO.setRealasedDate(movie.getRealasedDate());
-        movieCharacterWithoutMoviesDTO.setCalification(movie.getCalification());
-        movieCharacterWithoutMoviesDTO.setGenre(movie.getGenre());
-        movieCharacterWithoutMoviesDTO.setCharactersWithoutMovies(CharacterMapper.toListCharacterWitouhMoviesDto(movie.getCharacters()));
-
-        return movieCharacterWithoutMoviesDTO;
-    }
+    
 }

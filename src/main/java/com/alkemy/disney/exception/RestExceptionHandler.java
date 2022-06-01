@@ -26,9 +26,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 
+    @ExceptionHandler({ EntityNotFound.class })
+    public ResponseEntity<Object> handleEntityNotFound(EntityNotFound ex,WebRequest request) {
+        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.NOT_FOUND, request.getDescription(true), ex.getMessage(),  ex.getLocalizedMessage());
+        return new ResponseEntity(apiError, apiError.getStatus());
+    }
+
     @ExceptionHandler({ EntityAlreadyExists.class })
     public ResponseEntity<Object> entityAlreadyExists (EntityAlreadyExists ex, WebRequest request) {
-        ApiError apiError = new ApiError(LocalDateTime.now(), HttpStatus.CONFLICT, request.getDescription(true), ex.getMessage(), ex.getLocalizedMessage());
+        ApiError apiError = new ApiError(LocalDateTime.now(), HttpStatus.BAD_REQUEST, request.getDescription(true), ex.getMessage(), ex.getLocalizedMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
