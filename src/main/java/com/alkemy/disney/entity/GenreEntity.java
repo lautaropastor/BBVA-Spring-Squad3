@@ -1,5 +1,6 @@
 package com.alkemy.disney.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE genres SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
+@JsonIgnoreProperties(value = "deleted")
 public class GenreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

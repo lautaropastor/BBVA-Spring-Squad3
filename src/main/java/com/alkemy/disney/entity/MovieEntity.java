@@ -16,6 +16,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE movies SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
+@JsonIgnoreProperties(value = {"characters", "deleted"})
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
