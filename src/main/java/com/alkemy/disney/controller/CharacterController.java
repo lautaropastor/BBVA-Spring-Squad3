@@ -69,13 +69,8 @@ public class CharacterController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteCharacter(@PathVariable Long id){
-        
-        Boolean isDeleted = characterService.deleteCharacter(id);
-        
-        HttpStatus statusCode = isDeleted ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        
-        return ResponseEntity.status(statusCode).body(isDeleted);
+    public ResponseEntity<Boolean> deleteCharacter(@PathVariable Long id){        
+        return ResponseEntity.status(HttpStatus.OK).body(characterService.deleteCharacter(id));
     }
     
     // TODO: @PatchMapping
