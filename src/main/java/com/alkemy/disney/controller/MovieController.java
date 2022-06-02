@@ -1,6 +1,8 @@
 package com.alkemy.disney.controller;
 
 import com.alkemy.disney.dto.*;
+import com.alkemy.disney.entity.CharacterEntity;
+import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +30,9 @@ public class MovieController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteMovieById (@PathVariable Long id) {
+    public ResponseEntity<DeletedDTO> deleteMovieById (@PathVariable Long id) {
         movieService.deleteMovieById(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
+        return ResponseEntity.status(HttpStatus.OK).body(new DeletedDTO(MovieEntity.class));
     }
 
     @PostMapping
@@ -49,7 +51,8 @@ public class MovieController {
     }
     
     @DeleteMapping("/{idMovie}/characters/{idCharacter}")
-    public ResponseEntity<Boolean> removeCharacterInMovie (@PathVariable Long idMovie, @PathVariable Long idCharacter) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(movieService.removeCharacterInMovie(idMovie, idCharacter));
+    public ResponseEntity<DeletedDTO> removeCharacterInMovie (@PathVariable Long idMovie, @PathVariable Long idCharacter) {
+        movieService.removeCharacterInMovie(idMovie, idCharacter);
+        return ResponseEntity.status(HttpStatus.OK).body(new DeletedDTO(CharacterEntity.class));
     }
 }

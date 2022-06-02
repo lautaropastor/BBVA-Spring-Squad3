@@ -1,6 +1,8 @@
 package com.alkemy.disney.controller;
 
+import com.alkemy.disney.dto.DeletedDTO;
 import com.alkemy.disney.dto.GenreDTO;
+import com.alkemy.disney.entity.GenreEntity;
 import com.alkemy.disney.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,9 +47,9 @@ public class GenreController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteGenre(@PathVariable Long id)  {
+    public ResponseEntity<DeletedDTO> deleteGenre(@PathVariable Long id)  {
         genreService.deleteGenre(id);
-        return ResponseEntity.ok().body("Genre Deleted");
+        return ResponseEntity.ok().body(new DeletedDTO(GenreEntity.class));
     }
 
 
