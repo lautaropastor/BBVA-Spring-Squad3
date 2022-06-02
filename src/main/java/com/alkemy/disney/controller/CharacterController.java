@@ -3,6 +3,7 @@ package com.alkemy.disney.controller;
 import com.alkemy.disney.dto.CharacterSimpleDTO;
 import com.alkemy.disney.dto.CharacterDetailsDTO;
 import com.alkemy.disney.dto.CharacterWithoutMoviesDTO;
+import com.alkemy.disney.dto.DeletedDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.service.ICharacterService;
 import java.util.Set;
@@ -53,8 +54,9 @@ public class CharacterController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteCharacter(@PathVariable Long id){        
-        return ResponseEntity.status(HttpStatus.OK).body(characterService.deleteCharacter(id));
+    public ResponseEntity<DeletedDTO> deleteCharacter(@PathVariable Long id){
+        characterService.deleteCharacter(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new DeletedDTO(CharacterEntity.class));
     }
     
     // TODO: @PatchMapping

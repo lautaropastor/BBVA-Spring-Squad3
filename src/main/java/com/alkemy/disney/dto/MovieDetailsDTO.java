@@ -10,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
@@ -25,7 +27,7 @@ public final class MovieDetailsDTO {
     @NotBlank(message = "is required") @URL(message = "URL is not valid")
     private String image;
     
-    @NotNull(message = "is required") @Past(message = "is future") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull(message = "is required") @Past(message = "is future") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @JsonFormat(pattern="yyyy-MM-dd")
     private Date realasedDate;
     
     @NotNull(message = "is required") @Min(value = 1, message = "the minimum is 1") @Max(value = 5, message = "the maximum is 5")
