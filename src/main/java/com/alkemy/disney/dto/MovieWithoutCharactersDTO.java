@@ -2,11 +2,7 @@ package com.alkemy.disney.dto;
 
 import com.alkemy.disney.entity.GenreEntity;
 import java.util.Date;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -22,6 +18,7 @@ public class MovieWithoutCharactersDTO {
     private String title;
             
     @NotBlank(message = "is required") @URL(message = "URL is not valid")
+    @Pattern(regexp = ".*(png|jpg|jpeg|gif)$", message = "is not a valid format")
     private String image;
     
     @NotNull(message = "is required") @Past(message = "is future") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @JsonFormat(pattern = "yyyy-MM-dd")
