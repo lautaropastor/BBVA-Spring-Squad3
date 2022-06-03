@@ -25,6 +25,7 @@ public class GenreEntity {
     @Column
     private boolean deleted;
 
+    
     public GenreEntity(String name, String image) {
         this.name = name;
         this.image = image;
