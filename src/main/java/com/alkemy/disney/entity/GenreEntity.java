@@ -25,10 +25,6 @@ public class GenreEntity {
     @Column
     private boolean deleted;
 
-// Comentado hasta que le demos un uso - evita recursividad
-//    @OneToMany(mappedBy = "genre")
-//    private List<MovieEntity> movies;
-
     public GenreEntity(String name, String image) {
         this.name = name;
         this.image = image;
