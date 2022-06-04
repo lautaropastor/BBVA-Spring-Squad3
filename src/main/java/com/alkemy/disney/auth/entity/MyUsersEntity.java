@@ -5,13 +5,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Entity
+@Table (name = "users")
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table (name = "users")
-public class AuthEntity {
+public class MyUsersEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     private String username;
     private String password;
+
+    public MyUsersEntity (String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

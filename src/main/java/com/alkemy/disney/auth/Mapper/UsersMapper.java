@@ -2,7 +2,9 @@ package com.alkemy.disney.auth.Mapper;
 
 import com.alkemy.disney.auth.dto.MyUserDTO;
 import com.alkemy.disney.auth.entity.MyUsersEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UsersMapper {
 
     public MyUsersEntity toEntity (MyUserDTO myUserDTO) {
