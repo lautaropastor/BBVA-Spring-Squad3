@@ -18,17 +18,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticateController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private MyUserDetailsService myUserDetailsService;
 
-    @Autowired
-    private JwtUtils jwtTokenUtil;
-
     @PostMapping("/authenticate")
-    public ResponseEntity<?> createAutehnticationToken (@RequestBody MyUsersEntity myUsersEntity) throws Exception {
-        try {
+    public ResponseEntity<?> createAutehnticationToken (@RequestBody MyUserDTO myUserDTO) throws Exception {
+        String jwt = myUserDetailsService.getJwt(myUserDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new AuthTokenDTO(jwt));
+        /*try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(myUsersEntity.getUsername(), myUsersEntity.getPassword())
             );
@@ -37,7 +33,7 @@ public class AuthenticateController {
         }
         final UserDetails userDetails = myUserDetailsService.loadUserByUsername(myUsersEntity.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthTokenDTO(jwt));
+        return ResponseEntity.ok(new AuthTokenDTO(jwt));*/
     }
 
     @PostMapping("/authenticate/register")
