@@ -42,10 +42,11 @@ public class MyUserDetailsService implements UserDetailsService { //UDS es una c
         MyUsersEntity myUsersEntity = usersMapper.toEntity(myUserDTO);
         myUsersEntity.setPassword(encryptPassword(myUsersEntity.getPassword()));
         MyUsersEntity myUsersEntitySaved = userRepository.save(myUsersEntity);
-        return usersMapper.toDto(myUsersEntitySaved);
+        return usersMapper.toDtoWithouPass(myUsersEntitySaved);
     }
 
     private String encryptPassword (String password) {
+        //llamamos a passwordEncoder para encriptar la pass.
         return passwordEncoder.encode(password);
     }
 

@@ -22,4 +22,11 @@ public class UsersMapper {
 
         return myUserDTO;
     }
+
+    public MyUserDTO toDtoWithouPass(MyUsersEntity myUsersEntity) {
+        MyUserDTO myUserDTO = new MyUserDTO();
+        myUserDTO.setUsername(myUsersEntity.getUsername());
+
+        return myUserDTO;
+    }
 }

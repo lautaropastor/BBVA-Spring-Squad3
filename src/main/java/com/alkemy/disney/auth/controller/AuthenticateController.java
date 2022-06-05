@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping()
 public class AuthenticateController {
@@ -21,23 +23,13 @@ public class AuthenticateController {
     private MyUserDetailsService myUserDetailsService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> createAutehnticationToken (@RequestBody MyUserDTO myUserDTO) throws Exception {
+    public ResponseEntity<?> createAutehnticationToken (@Valid @RequestBody MyUserDTO myUserDTO) throws Exception {
         String jwt = myUserDetailsService.getJwt(myUserDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new AuthTokenDTO(jwt));
-        /*try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(myUsersEntity.getUsername(), myUsersEntity.getPassword())
-            );
-        } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password ", e);
-        }
-        final UserDetails userDetails = myUserDetailsService.loadUserByUsername(myUsersEntity.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthTokenDTO(jwt));*/
+        return ResponseEntity.status(HttpStatus.OK).body(new AuthTokenDTO(jwt));
     }
 
     @PostMapping("/authenticate/register")
-    public ResponseEntity<?> register (@RequestBody MyUserDTO myUserDTO) throws Exception {
+    public ResponseEntity<?> register (@Valid @RequestBody MyUserDTO myUserDTO) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED).body(myUserDetailsService.register(myUserDTO));
     }
 }
