@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,11 +34,19 @@ public class MyUserDetailsService implements UserDetailsService { //UDS es una c
     @Autowired
     private JwtUtils jwtTokenUtil;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public MyUserDTO register(MyUserDTO myUserDTO) {
         MyUsersEntity myUsersEntity = usersMapper.toEntity(myUserDTO);
+        myUsersEntity.setPassword(encryptPassword(myUsersEntity.getPassword()));
         MyUsersEntity myUsersEntitySaved = userRepository.save(myUsersEntity);
         return usersMapper.toDto(myUsersEntitySaved);
+    }
+
+    private String encryptPassword (String password) {
+        return passwordEncoder.encode(password);
     }
 
     public String getJwt(MyUserDTO myUserDTO) throws Exception {
