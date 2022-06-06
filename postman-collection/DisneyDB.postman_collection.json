@@ -1,0 +1,462 @@
+{
+	"info": {
+		"_postman_id": "83712f47-448b-40f9-b1c7-54bb8e401403",
+		"name": "DisneyDB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9349737"
+	},
+	"item": [
+		{
+			"name": "Obtener Pelicula/s",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/disney/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Pelicula",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Harry Potter and the Philosoperh's Stone\",\r\n    \"image\": \"https://cloudfront-us-east-1.images.arcpublishing.com/infobae/QNRAM7YSTJE5PHCXWU4FGQWV54.jpg\",\r\n    \"realasedDate\": \"2001-11-29\",\r\n    \"calification\": 5,\r\n    \"genre\": {\r\n        \"id\" : 1\r\n    },\r\n    \"characters\": [\r\n        {\r\n            \"name\" : \"Harry Potter\",\r\n            \"image\":\"https://media.revistavanityfair.es/photos/60e84a97bb9e71d46fd8d1f4/1:1/w_916,h_916,c_limit/39713.jpg\",\r\n            \"age\": 11,\r\n            \"weight\": 40,\r\n            \"history\": \"This is the history about Harry Potter, the child who survived\"\r\n        },\r\n        {\r\n            \"name\" : \"Ron Weasley\",\r\n            \"image\":\"https://hips.hearstapps.com/es.h-cdn.co/fotoes/images/cinefilia/que-tienes-de-ron-weasley/120274313-1-esl-ES/Que-tienes-de-Ron-Weasley.jpg\",\r\n            \"age\": 11,\r\n            \"weight\": 47,\r\n            \"history\": \"Ron Weasley is the best Harry's friend. He grew up with a magic family and he has 5 siblings\"\r\n        },\r\n        {\r\n            \"name\" : \"Hermione Granger\",\r\n            \"image\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpLCJZIcBIa5HxQIeTjDEsTSqmPjHDtEh1ulmjLCWeodseS60KrB2IGKaGSSw9H1uNp4Y&usqp=CAU\",\r\n            \"age\": 12,\r\n            \"weight\": 37,\r\n            \"history\": \"Hermione is the smartest child of her class. He met Harry on the train going to Howarts.\"\r\n        }\r\n    ]\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/disney/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Pelicula",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ediatndo el movie\",\r\n    \"image\": \"Imagen dasdase prueba\",\r\n    \"realesedDate\": \"2022-05-27\",\r\n    \"calification\": 1,\r\n    \"idGenre\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/disney/api/movies/22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"movies",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Pelicula",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/disney/api/movies/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"movies",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Personaje/s",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/disney/api/characters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Personaje",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Jack Sparrow\",\r\n    \"image\":\"https://cloudfront-us-east-1.images.arcpublishing.com/gruporepublica/B3544J5K2BEPRF7TMN5PS2KHIY.jpg\",\r\n    \"age\": 30,\r\n    \"weight\": 70,\r\n    \"history\": \"Jack Sparrow is a pirate who always is in troubles\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/disney/api/characters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"characters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Personaje",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Dario Maladetto\",\r\n    \"image\":\"Dario Maladetto\",\r\n    \"age\": -50,\r\n    \"weight\": -70.5,\r\n    \"history\": \"Testeando edad en negativo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/disney/api/characters/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"characters",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Genero/s",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/disney/api/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Genero",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"romance\",\r\n    \"image\" : \"https://www.filmsite.org/images/romance-genre.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/disney/api/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Genero",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": null,\r\n    \"image\" : \"testo de update\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/disney/api/genres/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"genres",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EliminarGenero",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/disney/api/genres/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"genres",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar personaje a pelicula",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/disney/api/movies/1/characters/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"movies",
+						"1",
+						"characters",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar personaje de pelicula",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZWRlcmljbyIsImV4cCI6MTY1NDU3MjAyNCwiaWF0IjoxNjU0NTM2MDI0fQ.IG1zzmQF9Kuhf3lOEbFbr2rpsV6C3gsPKqQ3CM57RMU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/disney/api/movies/1/characters/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"disney",
+						"api",
+						"movies",
+						"1",
+						"characters",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"federico\",\r\n    \"password\" : \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/authenticate/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"federico\",\r\n    \"password\": \"12345\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/authenticate/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
