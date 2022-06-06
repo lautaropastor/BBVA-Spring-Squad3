@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,8 @@ public class AuthenticateController {
 
     @PostMapping("/authenticate/login")
     public ResponseEntity<?> createAutehnticationToken (@Valid @RequestBody MyUserDTO myUserDTO) throws Exception {
-        String jwt = myUserDetailsService.getJwt(myUserDTO);
+        Authentication auth = myUserDetailsService.authenticate(myUserDTO);
+        String jwt = myUserDetailsService.getJwt(auth);
         return ResponseEntity.status(HttpStatus.OK).body(new AuthTokenDTO(jwt));
     }
 

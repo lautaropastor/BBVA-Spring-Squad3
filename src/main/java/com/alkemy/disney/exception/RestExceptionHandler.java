@@ -4,6 +4,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,6 +25,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ Throwable.class })
     public ResponseEntity<Object> handleAll(Throwable ex,WebRequest request) {
         ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.INTERNAL_SERVER_ERROR, request.getDescription(false),Error.GENERAL.getMessage(),  ex.getLocalizedMessage());
+        return new ResponseEntity(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler({BadCredentialsException.class, InternalAuthenticationServiceException.class})
+    public ResponseEntity<Object> handleErrorWhileLogin (Exception ex, WebRequest request) {
+        String error = "Your credentials are invalid.";
+        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.FORBIDDEN, request.getDescription(false), Error.INVALID_USERDATA.getMessage(), error);
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 

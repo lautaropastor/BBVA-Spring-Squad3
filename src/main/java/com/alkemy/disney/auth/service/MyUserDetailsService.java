@@ -52,16 +52,14 @@ public class MyUserDetailsService implements UserDetailsService { //UDS es una c
         return passwordEncoder.encode(password);
     }
 
-    public String getJwt(MyUserDTO myUserDTO) throws Exception {
+    public Authentication authenticate (MyUserDTO myUserDTO) {
         MyUsersEntity myUsersEntity = usersMapper.toEntity(myUserDTO);
-        Authentication auth;
-        try {
-            auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(myUsersEntity.getUsername(), myUsersEntity.getPassword())
-            );
-        } catch (BadCredentialsException | InternalAuthenticationServiceException e ) {
-            throw new Exception(Error.INVALID_USERDATA.getMessage(), e);
-        }
+        return authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(myUsersEntity.getUsername(), myUsersEntity.getPassword())
+        );
+    }
+
+    public String getJwt (Authentication auth) {
         final String jwt = jwtTokenUtil.generateToken((UserDetails) auth.getPrincipal());
         return jwt;
     }
