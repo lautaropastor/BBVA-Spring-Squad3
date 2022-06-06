@@ -22,7 +22,7 @@ public class AuthenticateController {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
-    @PostMapping("/authenticate")
+    @PostMapping("/authenticate/login")
     public ResponseEntity<?> createAutehnticationToken (@Valid @RequestBody MyUserDTO myUserDTO) throws Exception {
         String jwt = myUserDetailsService.getJwt(myUserDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new AuthTokenDTO(jwt));
