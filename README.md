@@ -12,7 +12,7 @@ Running the project you just need run the main.
 
 **REST API** 
 
-If you are interested to see a detailed example of the different request you can do, check this link: https://app.swaggerhub.com/apis-docs/Squad-3/Disney-API/1.0.0
+If you are interested to see a detailed example of each request you can do, check this link: https://app.swaggerhub.com/apis-docs/Squad-3/Disney-API/1.0.0
 
 As introduction, you can get, add, remove or modify --> Genres, Characters and Movies.
 
