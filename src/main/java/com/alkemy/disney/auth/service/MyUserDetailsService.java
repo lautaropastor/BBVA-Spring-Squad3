@@ -6,11 +6,13 @@ import com.alkemy.disney.auth.dto.MyUserDTO;
 import com.alkemy.disney.auth.entity.MyUsersEntity;
 import com.alkemy.disney.auth.repository.UserRepository;
 import com.alkemy.disney.auth.utils.JwtUtils;
+import com.alkemy.disney.exception.Error;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -52,15 +54,15 @@ public class MyUserDetailsService implements UserDetailsService { //UDS es una c
 
     public String getJwt(MyUserDTO myUserDTO) throws Exception {
         MyUsersEntity myUsersEntity = usersMapper.toEntity(myUserDTO);
+        Authentication auth;
         try {
-            authenticationManager.authenticate(
+            auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(myUsersEntity.getUsername(), myUsersEntity.getPassword())
             );
-        } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password ", e);
+        } catch (BadCredentialsException | InternalAuthenticationServiceException e ) {
+            throw new Exception(Error.INVALID_USERDATA.getMessage(), e);
         }
-        final UserDetails userDetails = loadUserByUsername(myUsersEntity.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
+        final String jwt = jwtTokenUtil.generateToken((UserDetails) auth.getPrincipal());
         return jwt;
     }
 

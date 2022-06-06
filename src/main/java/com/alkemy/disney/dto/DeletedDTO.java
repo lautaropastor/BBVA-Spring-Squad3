@@ -8,6 +8,6 @@ public class DeletedDTO {
     private String message;
 
     public DeletedDTO (Class entity) {
-        message = "The " + entity.getSimpleName() + " was deleted succesfully";
+        message = "The " + entity.getSimpleName() + " was removed succesfully";
     }
 }

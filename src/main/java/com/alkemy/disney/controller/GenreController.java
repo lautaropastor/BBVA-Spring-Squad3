@@ -18,7 +18,6 @@ import java.util.List;
 @RequestMapping("/disney/api/genres")
 public class GenreController {
 
-
     @Autowired()
     private GenreService genreService;
 
