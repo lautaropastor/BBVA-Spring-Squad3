@@ -1,6 +1,5 @@
 package com.alkemy.disney.exception;
 
-import io.jsonwebtoken.SignatureException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,8 +28,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 
-
-    @ExceptionHandler({BadCredentialsException.class, InternalAuthenticationServiceException.class, SignatureException.class})
+    @ExceptionHandler({BadCredentialsException.class, InternalAuthenticationServiceException.class })
     public ResponseEntity<Object> handleErrorWhileLogin (Exception ex, WebRequest request) {
         ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.FORBIDDEN, request.getDescription(false), Error.INVALID_USERDATA.getMessage(), Error.MESSAGE_BAD_CREDENTIALS.getMessage());
         return new ResponseEntity(apiError, apiError.getStatus());
