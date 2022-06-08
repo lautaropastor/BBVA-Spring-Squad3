@@ -28,10 +28,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 
-    @ExceptionHandler({BadCredentialsException.class, InternalAuthenticationServiceException.class})
+    @ExceptionHandler({BadCredentialsException.class, InternalAuthenticationServiceException.class })
     public ResponseEntity<Object> handleErrorWhileLogin (Exception ex, WebRequest request) {
-        String error = "Your credentials are invalid.";
-        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.FORBIDDEN, request.getDescription(false), Error.INVALID_USERDATA.getMessage(), error);
+        ApiError apiError = new ApiError(LocalDateTime.now(),HttpStatus.FORBIDDEN, request.getDescription(false), Error.INVALID_USERDATA.getMessage(), Error.MESSAGE_BAD_CREDENTIALS.getMessage());
         return new ResponseEntity(apiError, apiError.getStatus());
     }
 
