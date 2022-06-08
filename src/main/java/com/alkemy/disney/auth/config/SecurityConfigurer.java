@@ -1,5 +1,6 @@
 package com.alkemy.disney.auth.config;
 
+import com.alkemy.disney.auth.Authentication.JwtAuthenticationEntryPoint;
 import com.alkemy.disney.auth.filter.JwtRequestFilter;
 import com.alkemy.disney.auth.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter { //WSCA me
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthEndPoint;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(myUserDetailsService);
@@ -33,7 +37,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter { //WSCA me
                 anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthEndPoint);
     }
 
     @Override

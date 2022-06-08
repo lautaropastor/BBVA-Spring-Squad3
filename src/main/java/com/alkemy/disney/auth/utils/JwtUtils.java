@@ -49,7 +49,6 @@ public class JwtUtils {
 
     //Ya no enviamos el UserDetails
     public Boolean validateToken(String token) {
-        //final String username = extractUsername(token);
         return (!isTokenExpired(token));
     }
 }
